@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.mobilebox.R;
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.app.Constants;
 
 import java.io.BufferedReader;
@@ -35,7 +35,7 @@ public class CommonUtils {
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dp2px(float dpValue) {
-        final float scale = BaseApplication.getInstance().getResources().getDisplayMetrics().density;
+        final float scale = SmartBoxApplication.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -103,7 +103,7 @@ public class CommonUtils {
      * 检查是否有可用网络
      */
     public static boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) BaseApplication.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) SmartBoxApplication.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (null == connectivityManager)
             return false;
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();

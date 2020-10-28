@@ -4,7 +4,8 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class PersistentCookieStore {
     private final SharedPreferences cookiePrefs;
 
     PersistentCookieStore() {
-        cookiePrefs = BaseApplication.getInstance().getSharedPreferences(COOKIE_PREFS, 0);
+        cookiePrefs = SmartBoxApplication.getInstance().getSharedPreferences(COOKIE_PREFS, 0);
         cookies = new HashMap<>();
 
         //将持久化的cookies缓存到内存中 即map cookies

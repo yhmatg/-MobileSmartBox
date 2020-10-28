@@ -2,7 +2,7 @@ package com.android.mobilebox.core.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.app.Constants;
 /**
  * @author yhm
@@ -15,7 +15,7 @@ public class PreferenceHelperImpl implements PreferenceHelper {
     private volatile static PreferenceHelperImpl INSTANCE = null;
 
     private PreferenceHelperImpl() {
-        mPreferences = BaseApplication.getInstance().getSharedPreferences(Constants.MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        mPreferences = SmartBoxApplication.getInstance().getSharedPreferences(Constants.MY_SHARED_PREFERENCE, Context.MODE_PRIVATE);
     }
 
     public static PreferenceHelperImpl getInstance(){
@@ -40,7 +40,27 @@ public class PreferenceHelperImpl implements PreferenceHelper {
 
     @Override
     public String getHostUrl() {
-        return mPreferences.getString(Constants.HOSTURL, "");
+        return mPreferences.getString(Constants.HOSTURL, "http://172.16.68.142/");
+    }
+
+    @Override
+    public void setLoginAccount(String account) {
+        mPreferences.edit().putString(Constants.ACCOUNT, account).apply();
+    }
+
+    @Override
+    public void setLoginPassword(String password) {
+        mPreferences.edit().putString(Constants.PASSWORD, password).apply();
+    }
+
+    @Override
+    public String getLoginAccount() {
+        return mPreferences.getString(Constants.ACCOUNT, "");
+    }
+
+    @Override
+    public String getLoginPassword() {
+        return mPreferences.getString(Constants.PASSWORD, "");
     }
 
     @Override

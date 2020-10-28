@@ -51,6 +51,26 @@ public class DataManager implements HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public void setLoginAccount(String account) {
+        mPreferenceHelper.setLoginAccount(account);
+    }
+
+    @Override
+    public void setLoginPassword(String password) {
+        mPreferenceHelper.setLoginPassword(password);
+    }
+
+    @Override
+    public String getLoginAccount() {
+        return mPreferenceHelper.getLoginAccount();
+    }
+
+    @Override
+    public String getLoginPassword() {
+        return mPreferenceHelper.getLoginPassword();
+    }
+
+    @Override
     public void setToken(String token) {
         mPreferenceHelper.setToken(token);
     }

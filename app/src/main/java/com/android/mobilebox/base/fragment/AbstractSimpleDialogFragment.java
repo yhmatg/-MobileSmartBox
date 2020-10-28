@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.squareup.leakcanary.RefWatcher;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -48,7 +48,7 @@ public abstract class AbstractSimpleDialogFragment extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = BaseApplication.getRefWatcher(getActivity());
+        RefWatcher refWatcher = SmartBoxApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);
     }
 

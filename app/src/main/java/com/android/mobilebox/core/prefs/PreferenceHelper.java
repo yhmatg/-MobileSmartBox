@@ -13,5 +13,12 @@ public interface PreferenceHelper {
 
     String getHostUrl();
 
+    void setLoginAccount(String account);
+
+    void setLoginPassword(String password);
+
+    String getLoginAccount();
+
+    String getLoginPassword();
 }
 

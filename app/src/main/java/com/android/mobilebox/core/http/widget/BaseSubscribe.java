@@ -2,7 +2,7 @@ package com.android.mobilebox.core.http.widget;
 
 import android.text.TextUtils;
 import com.android.mobilebox.R;
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.base.view.AbstractView;
 import com.android.mobilebox.core.http.exception.ServerException;
 import com.android.mobilebox.utils.LogHelper;
@@ -55,9 +55,9 @@ public abstract class BaseSubscribe <T> extends ResourceSubscriber<T> {
         } else if (e instanceof ServerException) {
             mView.showErrorMsg(e.toString());
         } else if (e instanceof HttpException) {
-            mView.showErrorMsg(BaseApplication.getInstance().getString(R.string.http_error));
+            mView.showErrorMsg(SmartBoxApplication.getInstance().getString(R.string.http_error));
         } else {
-            mView.showErrorMsg(BaseApplication.getInstance().getString(R.string.unKnown_error));
+            mView.showErrorMsg(SmartBoxApplication.getInstance().getString(R.string.unKnown_error));
             LogHelper.d(e.toString());
         }
         if (isShowError) {

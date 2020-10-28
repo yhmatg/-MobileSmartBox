@@ -6,4 +6,7 @@
     <string name="socket_time_out_error">网络连接超时，请检查输入的服务器URL是否正确!</string>
     <string name="not_result_error">未获取到数据！</string>
     <string name="empty_page_text">没有数据</string>
+    <string name="login">登录</string>
+    <string name="login_hint">手机/邮箱/用户名</string>
+    <string name="user_passward">密码</string>
 </resources>

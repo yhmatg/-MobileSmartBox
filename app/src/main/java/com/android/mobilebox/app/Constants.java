@@ -22,7 +22,7 @@ public class Constants {
     /**
      * Path
      */
-    public static final String PATH_DATA = BaseApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
+    public static final String PATH_DATA = SmartBoxApplication.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
 
     public static final String PATH_CACHE = PATH_DATA + "/NetCache";
 
@@ -39,6 +39,10 @@ public class Constants {
     public static final String HOSTURL = "hostUrl";
 
     public static final String TOKEN = "token";
+
+    public static final String ACCOUNT = "account";
+
+    public static final String PASSWORD = "password";
 
 
 }

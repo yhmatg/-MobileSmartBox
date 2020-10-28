@@ -3,7 +3,7 @@ package com.android.mobilebox.core.http.client;
 import android.content.Context;
 
 import com.android.mobilebox.BuildConfig;
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.app.Constants;
 import com.android.mobilebox.core.http.interceptor.AppendUrlIntercepter;
 import com.android.mobilebox.core.http.interceptor.CacheInterceptor;
@@ -63,7 +63,7 @@ public class RetrofitClient {
     private RetrofitClient() {
         url = PreferenceHelperImpl.getInstance().getHostUrl();
         if(StringUtils.isEmpty(url)){
-            url ="http://assets.esimtekiot.com";
+            url ="http://172.16.68.142/";
         }
         retrofit = createRetrofit(provideClient(), url);
 
@@ -120,7 +120,7 @@ public class RetrofitClient {
         builder.retryOnConnectionFailure(true);
         //cookie认证
         builder.cookieJar(new PersistentCookieJar(new SetCookieCache(),
-                new SharedPrefsCookiePersistor(BaseApplication.getInstance())));
+                new SharedPrefsCookiePersistor(SmartBoxApplication.getInstance())));
         return RetrofitUrlManager.getInstance().with(builder).build();
     }
 

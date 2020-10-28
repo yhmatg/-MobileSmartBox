@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.android.mobilebox.BuildConfig;
 import com.android.mobilebox.R;
+import com.android.mobilebox.utils.Utils;
 import com.android.mobilebox.utils.logger.MyCrashListener;
 import com.android.mobilebox.utils.logger.TxtFormatStrategy;
 import com.bumptech.glide.Glide;
@@ -22,18 +23,18 @@ import com.xuexiang.xlog.crash.CrashHandler;
  * @author yhm
  * @date 2017/11/27
  */
-//public class BaseApplication extends Application implements HasActivityInjector {
-public class BaseApplication extends Application {
+//public class SmartBoxApplication extends Application implements HasActivityInjector {
+public class SmartBoxApplication extends Application {
 
 
-    private static BaseApplication instance;
+    private static SmartBoxApplication instance;
     private RefWatcher refWatcher;
-    public static synchronized BaseApplication getInstance() {
+    public static synchronized SmartBoxApplication getInstance() {
         return instance;
     }
 
     public static RefWatcher getRefWatcher(Context context) {
-        BaseApplication application = (BaseApplication) context.getApplicationContext();
+        SmartBoxApplication application = (SmartBoxApplication) context.getApplicationContext();
         return application.refWatcher;
     }
 
@@ -56,6 +57,7 @@ public class BaseApplication extends Application {
         //崩溃日志保存到本地
         ///storage/emulated/0/Android/data/com.common.esimrfid/cache/crash_log
         XLog.init(this);
+        Utils.init(this);
         CrashHandler.getInstance().setOnCrashListener(new MyCrashListener());
 
     }

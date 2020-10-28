@@ -6,7 +6,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.core.bean.user.DbUser;
 
 @Database(entities = {
@@ -27,7 +27,7 @@ public abstract class BaseDb extends RoomDatabase {
 
     private static BaseDb createDb() {
         BaseDb build = Room.databaseBuilder(
-                BaseApplication.getInstance(),
+                SmartBoxApplication.getInstance(),
                 BaseDb.class,
                 DB_NAME).addCallback(new Callback() {
             //第一次创建数据库时调用，但是在创建所有表之后调用的

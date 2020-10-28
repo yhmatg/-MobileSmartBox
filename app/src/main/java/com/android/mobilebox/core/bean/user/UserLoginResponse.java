@@ -2,16 +2,7 @@ package com.android.mobilebox.core.bean.user;
 
 
 public class UserLoginResponse {
-    private UserInfo userinfo;
     private String token;
-
-    public UserInfo getSysUser() {
-        return userinfo;
-    }
-
-    public void setSysUser(UserInfo userinfo) {
-        this.userinfo = userinfo;
-    }
 
     public String getToken() {
         return token;

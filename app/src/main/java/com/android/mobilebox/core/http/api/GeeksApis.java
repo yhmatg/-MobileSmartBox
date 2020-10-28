@@ -15,9 +15,9 @@ import retrofit2.http.POST;
 
 public interface GeeksApis {
 
-    String HOST = "http://172.16.63.25:12000"; //佳航25，言娇35，梦伟32
-
     //登录
-    @POST("user-server/userauth/loginwithinfo")
+    @POST("/api/v1/auth/login")
     Observable<BaseResponse<UserLoginResponse>> login(@Body UserInfo userInfo);
+
+
 }

@@ -3,7 +3,7 @@ package com.android.mobilebox.core.http.widget;
 import android.text.TextUtils;
 import android.util.Log;
 import com.android.mobilebox.R;
-import com.android.mobilebox.app.BaseApplication;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.base.view.AbstractView;
 import com.android.mobilebox.core.http.exception.ResultIsNullException;
 import com.android.mobilebox.core.http.exception.ServerException;
@@ -71,7 +71,7 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
         } else if (e instanceof ResultIsNullException) {
             ToastUtils.showShort(R.string.not_result_error);
         } else {
-            mView.showErrorMsg(BaseApplication.getInstance().getString(R.string.unKnown_error));
+            mView.showErrorMsg(SmartBoxApplication.getInstance().getString(R.string.unKnown_error));
             LogHelper.d(e.toString());
         }
         if (isShowError) {
