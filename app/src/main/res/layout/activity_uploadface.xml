@@ -9,11 +9,11 @@
         android:id="@+id/iv_face"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:minHeight="200dp"
-        android:maxHeight="300dp"
         android:layout_marginTop="20dp"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:maxHeight="300dp"
+        android:minWidth="200dp"
+        android:minHeight="200dp" />
 
     <Button
         android:id="@+id/bt_choose_pic"
@@ -28,4 +28,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/sp_20"
         android:text="图片上传" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="图片地址：" />
+
+    <Button
+        android:id="@+id/bt_update_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="头像更新" />
 </LinearLayout>

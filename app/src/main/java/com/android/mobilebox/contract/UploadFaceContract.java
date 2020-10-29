@@ -1,9 +1,9 @@
 package com.android.mobilebox.contract;
+
 import com.android.mobilebox.base.presenter.AbstractPresenter;
 import com.android.mobilebox.base.view.AbstractView;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
-import com.android.mobilebox.core.bean.user.UserInfo;
 
 import okhttp3.MultipartBody;
 
@@ -23,5 +23,7 @@ public interface UploadFaceContract {
     interface Presenter extends AbstractPresenter<View> {
 
         void uploadFace(MultipartBody.Part part);
+
+        void updateFace(String id, String faceImg, String faceFeature);
     }
 }

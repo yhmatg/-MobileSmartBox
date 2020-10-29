@@ -70,7 +70,7 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
         }
     }
 
-    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic})
+    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic,R.id.bt_update_pic})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.bt_choose_pic:
@@ -87,7 +87,10 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
                         mPresenter.uploadFace(filePart);
                     }
                 }
-
+                break;
+            case R.id.bt_update_pic:
+                chooseLocalImage();
+                break;
             default:
                 break;
         }

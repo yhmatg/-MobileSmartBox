@@ -1,7 +1,7 @@
 package com.android.mobilebox.contract;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
 import com.android.mobilebox.base.view.AbstractView;
-import com.android.mobilebox.core.bean.user.UserInfo;
+import com.android.mobilebox.core.bean.user.LoginUser;
 
 /**
  * @author yhm
@@ -18,6 +18,6 @@ public interface LoginContract {
 
     interface Presenter extends AbstractPresenter<View> {
 
-        void login(UserInfo userInfo);
+        void login(LoginUser loginUser);
     }
 }

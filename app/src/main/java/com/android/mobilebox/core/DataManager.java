@@ -1,12 +1,16 @@
 package com.android.mobilebox.core;
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
+import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.core.http.HttpHelper;
 import com.android.mobilebox.core.http.HttpHelperImpl;
 import com.android.mobilebox.core.prefs.PreferenceHelper;
 import com.android.mobilebox.core.prefs.PreferenceHelperImpl;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -83,13 +87,33 @@ public class DataManager implements HttpHelper, PreferenceHelper {
     }
 
     @Override
-    public Observable<BaseResponse<UserLoginResponse>> login(UserInfo userInfo) {
-        return mHttpHelper.login(userInfo);
+    public Observable<BaseResponse<UserLoginResponse>> login(LoginUser loginUser) {
+        return mHttpHelper.login(loginUser);
     }
 
     @Override
     public Observable<BaseResponse<UploadFaceResponse>> uploadFace(MultipartBody.Part part) {
         return mHttpHelper.uploadFace(part);
+    }
+
+    @Override
+    public Observable<BaseResponse<UserInfo>> updateFace(String id, String faceImg, String faceFeature) {
+        return mHttpHelper.updateFace(id, faceImg, faceFeature);
+    }
+
+    @Override
+    public Observable<BaseResponse<UserInfo>> getUserInfoById(String userId) {
+        return mHttpHelper.getUserInfoById(userId);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<UserInfo>>> getAllUserInfo() {
+        return mHttpHelper.getAllUserInfo();
+    }
+
+    @Override
+    public Observable<BaseResponse> terminalOrder(String devId, OrderBody orderBody) {
+        return  mHttpHelper.terminalOrder(devId, orderBody);
     }
 
 

@@ -1,24 +1,16 @@
 package com.android.mobilebox.presenter;
 
-import android.util.Log;
-
 import com.android.mobilebox.base.presenter.BasePresenter;
-import com.android.mobilebox.contract.LoginContract;
 import com.android.mobilebox.contract.UploadFaceContract;
 import com.android.mobilebox.core.DataManager;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
-import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.core.http.widget.BaseObserver;
-import com.android.mobilebox.utils.CommonUtils;
-import com.android.mobilebox.utils.Md5Util;
 import com.android.mobilebox.utils.RxUtils;
 import com.android.mobilebox.utils.ToastUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 
 
@@ -48,6 +40,23 @@ public class UploadFacePresenter extends BasePresenter<UploadFaceContract.View> 
             @Override
             public void onError(Throwable e) {
                 ToastUtils.showShort("人脸头像上传失败" + e.getMessage());
+            }
+        }));
+    }
+
+    @Override
+    public void updateFace(String id, String faceImg, String faceFeature) {
+        addSubscribe(DataManager.getInstance().updateFace(id, faceImg, faceFeature)
+        .compose(RxUtils.rxSchedulerHelper())
+        .subscribeWith(new BaseObserver<BaseResponse<UserInfo>>(mView,false) {
+            @Override
+            public void onNext(BaseResponse<UserInfo> userInfoBaseResponse) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ToastUtils.showShort("人脸头像更新失败" + e.getMessage());
             }
         }));
     }

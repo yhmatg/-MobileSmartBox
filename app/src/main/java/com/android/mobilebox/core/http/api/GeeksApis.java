@@ -1,16 +1,22 @@
 package com.android.mobilebox.core.http.api;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
+import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -22,7 +28,7 @@ public interface GeeksApis {
 
     //登录
     @POST("/api/v1/auth/login")
-    Observable<BaseResponse<UserLoginResponse>> login(@Body UserInfo userInfo);
+    Observable<BaseResponse<UserLoginResponse>> login(@Body LoginUser loginUser);
 
     //人脸头像上传
     @Multipart
@@ -31,10 +37,21 @@ public interface GeeksApis {
 
     //人脸头像更新
     @POST("/api/v1/users/updateface")
-    Observable<BaseResponse>updateFace(@Query("id") String id,@Query("faceImg") String faceImg,@Query("faceFeature") String faceFeature);
+    Observable<BaseResponse<UserInfo>> updateFace(@Query("id") String id, @Query("faceImg") String faceImg, @Query("faceFeature") String faceFeature);
 
     //人脸头像特征值更新
     @POST("/api/v1/users/updateFeature")
-    Observable<BaseResponse>updateFeature(@Query("id") String id,@Query("faceImg") String faceImg,@Query("faceFeature") String faceFeature);
+    Observable<BaseResponse<UserInfo>> updateFeature(@Query("id") String id, @Query("faceImg") String faceImg, @Query("faceFeature") String faceFeature);
 
+    //根据用户id获取用户信息
+    @GET("/api/v1/users/{userId}")
+    Observable<BaseResponse<UserInfo>> getUserInfoById(@Path("userId") String userId);
+
+    //获取所有用户信息
+    @GET("/api/v1/users/{userId}")
+    Observable<BaseResponse<List<UserInfo>>> getAllUserInfo();
+
+    //终端指令管理，远程开锁等
+    @POST("/api/v1/terminalctl/devices/{dev_id}/insts")
+    Observable<BaseResponse> terminalOrder(@Path("dev_id") String devId, @Body OrderBody orderBody);
 }

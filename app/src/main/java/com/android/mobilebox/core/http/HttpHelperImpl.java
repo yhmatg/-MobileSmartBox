@@ -1,11 +1,15 @@
 package com.android.mobilebox.core.http;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
+import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.core.http.api.GeeksApis;
 import com.android.mobilebox.core.http.client.RetrofitClient;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -44,13 +48,33 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<UserLoginResponse>> login(UserInfo userInfo) {
-        return mGeeksApis.login(userInfo);
+    public Observable<BaseResponse<UserLoginResponse>> login(LoginUser loginUser) {
+        return mGeeksApis.login(loginUser);
     }
 
     @Override
     public Observable<BaseResponse<UploadFaceResponse>> uploadFace(MultipartBody.Part part) {
         return mGeeksApis.uploadFace(part);
+    }
+
+    @Override
+    public Observable<BaseResponse<UserInfo>> updateFace(String id, String faceImg, String faceFeature) {
+        return mGeeksApis.updateFace(id, faceImg, faceFeature);
+    }
+
+    @Override
+    public Observable<BaseResponse<UserInfo>> getUserInfoById(String userId) {
+        return mGeeksApis.getUserInfoById(userId);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<UserInfo>>> getAllUserInfo() {
+        return mGeeksApis.getAllUserInfo();
+    }
+
+    @Override
+    public Observable<BaseResponse> terminalOrder(String devId, OrderBody orderBody) {
+        return mGeeksApis.terminalOrder(devId, orderBody);
     }
 
 }

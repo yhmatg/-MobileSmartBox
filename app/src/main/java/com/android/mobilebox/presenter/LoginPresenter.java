@@ -1,30 +1,19 @@
 package com.android.mobilebox.presenter;
 
-import android.util.Log;
-
-import com.android.mobilebox.R;
 import com.android.mobilebox.base.presenter.BasePresenter;
 import com.android.mobilebox.contract.LoginContract;
 import com.android.mobilebox.core.DataManager;
 import com.android.mobilebox.core.bean.BaseResponse;
-import com.android.mobilebox.core.bean.user.UserInfo;
+import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.core.http.widget.BaseObserver;
 import com.android.mobilebox.utils.CommonUtils;
 import com.android.mobilebox.utils.Md5Util;
 import com.android.mobilebox.utils.RxUtils;
-import com.android.mobilebox.utils.ToastUtils;
-
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-
-import javax.net.ssl.SSLHandshakeException;
-import javax.net.ssl.SSLPeerUnverifiedException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.HttpException;
 
 
 /**
@@ -39,11 +28,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
     
     @Override
-    public void login(final UserInfo userInfo) {
-        final String passWord = userInfo.getPassword();
+    public void login(final LoginUser loginUser) {
+        final String passWord = loginUser.getPassword();
         if(CommonUtils.isNetworkConnected()){
-            userInfo.setPassword(Md5Util.getMD5(passWord));
-            addSubscribe(DataManager.getInstance().login(userInfo)
+            loginUser.setPassword(Md5Util.getMD5(passWord));
+            addSubscribe(DataManager.getInstance().login(loginUser)
             .compose(RxUtils.rxSchedulerHelper())
             .observeOn(Schedulers.io())
             .doOnNext(new Consumer<BaseResponse<UserLoginResponse>>() {
