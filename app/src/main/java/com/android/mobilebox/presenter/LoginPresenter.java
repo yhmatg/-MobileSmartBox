@@ -59,7 +59,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
                 @Override
                 public void onNext(BaseResponse<UserLoginResponse> userLoginResponseBaseResponse) {
-                    Log.e("LoginPresenter",userLoginResponseBaseResponse.toString());
+                    mView.startMainActivity();
                 }
             }));
         }

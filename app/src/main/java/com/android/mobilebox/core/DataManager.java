@@ -1,5 +1,6 @@
 package com.android.mobilebox.core;
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.core.http.HttpHelper;
@@ -8,6 +9,7 @@ import com.android.mobilebox.core.prefs.PreferenceHelper;
 import com.android.mobilebox.core.prefs.PreferenceHelperImpl;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * @author yhm
@@ -85,6 +87,10 @@ public class DataManager implements HttpHelper, PreferenceHelper {
         return mHttpHelper.login(userInfo);
     }
 
+    @Override
+    public Observable<BaseResponse<UploadFaceResponse>> uploadFace(MultipartBody.Part part) {
+        return mHttpHelper.uploadFace(part);
+    }
 
 
 }

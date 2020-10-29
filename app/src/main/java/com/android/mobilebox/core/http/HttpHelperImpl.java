@@ -1,12 +1,14 @@
 package com.android.mobilebox.core.http;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.core.http.api.GeeksApis;
 import com.android.mobilebox.core.http.client.RetrofitClient;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * 对外隐藏进行网络请求的实现细节
@@ -44,6 +46,11 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<UserLoginResponse>> login(UserInfo userInfo) {
         return mGeeksApis.login(userInfo);
+    }
+
+    @Override
+    public Observable<BaseResponse<UploadFaceResponse>> uploadFace(MultipartBody.Part part) {
+        return mGeeksApis.uploadFace(part);
     }
 
 }

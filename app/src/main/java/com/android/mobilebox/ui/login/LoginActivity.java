@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +18,26 @@ import com.android.mobilebox.R;
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.LoginContract;
 import com.android.mobilebox.core.DataManager;
+import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.http.HttpHelperImpl;
+import com.android.mobilebox.core.http.api.GeeksApis;
 import com.android.mobilebox.core.http.client.RetrofitClient;
 import com.android.mobilebox.presenter.LoginPresenter;
+import com.android.mobilebox.ui.uploadface.UploadFaceActivity;
+import com.android.mobilebox.utils.RxUtils;
 import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.ToastUtils;
+
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.observers.ResourceObserver;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 /**
@@ -110,11 +123,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mPresenter.login(userInfo);
     }
 
-    public void startMainActivity() {
-
-    }
-
-
     @Override
     public LoginPresenter initPresenter() {
         return new LoginPresenter();
@@ -128,5 +136,38 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void startLoginActivity(){
 
+    }
+
+    public void testUploadFace(){
+        File file = new File("/storage/emulated/0/Pictures/2.png");
+        boolean exists = file.exists();
+        Log.e("LoginActivity",file.exists() + "");
+        RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
+        //将文件转化为MultipartBody.Part
+        //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), imgBody);
+        RetrofitClient.getInstance().create(GeeksApis.class).uploadFace(filePart)
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new ResourceObserver<BaseResponse<UploadFaceResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<UploadFaceResponse> uploadFaceResponseBaseResponse) {
+                        Log.e("LoginActivity",uploadFaceResponseBaseResponse.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("LoginActivity",e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void startMainActivity() {
+        startActivity(new Intent(this, UploadFaceActivity.class));
     }
 }

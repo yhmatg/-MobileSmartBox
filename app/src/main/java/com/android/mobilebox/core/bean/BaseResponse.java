@@ -6,7 +6,7 @@ package com.android.mobilebox.core.bean;
  * 该类仅供参考，实际业务返回的固定字段, 根据需求来定义，
  */
 public class BaseResponse<T> {
-    private String code;
+    private Integer code;
     private String message;
     private T data;
     private boolean success;
@@ -19,11 +19,11 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
