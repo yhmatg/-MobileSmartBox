@@ -31,24 +31,23 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     public void login(final LoginUser loginUser) {
         final String passWord = loginUser.getPassword();
         if(CommonUtils.isNetworkConnected()){
-            loginUser.setPassword(Md5Util.getMD5(passWord));
+            //loginUser.setPassword(Md5Util.getMD5(passWord));
             addSubscribe(DataManager.getInstance().login(loginUser)
             .compose(RxUtils.rxSchedulerHelper())
             .observeOn(Schedulers.io())
-            .doOnNext(new Consumer<BaseResponse<UserLoginResponse>>() {
-
-                @Override
-                public void accept(BaseResponse<UserLoginResponse> userLoginResponseBaseResponse) throws Exception {
-
-                }
-            })
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new BaseObserver<BaseResponse<UserLoginResponse>>(mView,
                     false) {
 
                 @Override
-                public void onNext(BaseResponse<UserLoginResponse> userLoginResponseBaseResponse) {
-                    mView.startMainActivity();
+                public void onNext(BaseResponse<UserLoginResponse> userLoginResponse) {
+                    if(userLoginResponse.getCode() == 200000){
+                        DataManager.getInstance().setToken(userLoginResponse.getData().getToken());
+                        DataManager.getInstance().setLoginAccount(loginUser.getUsername());
+                        DataManager.getInstance().setLoginPassword(loginUser.getPassword());
+                        mView.startMainActivity();
+                    }
+
                 }
             }));
         }

@@ -1,7 +1,10 @@
 package com.android.mobilebox.core.http;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.FaceBody;
+import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
+import com.android.mobilebox.core.bean.user.TerminalResult;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
@@ -58,8 +61,8 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<UserInfo>> updateFace(String id, String faceImg, String faceFeature) {
-        return mGeeksApis.updateFace(id, faceImg, faceFeature);
+    public Observable<BaseResponse<UserInfo>> updateFace(FaceBody faceBody) {
+        return mGeeksApis.updateFace(faceBody);
     }
 
     @Override
@@ -73,8 +76,13 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse> terminalOrder(String devId, OrderBody orderBody) {
+    public Observable<BaseResponse<OpenResult>> terminalOrder(String devId, OrderBody orderBody) {
         return mGeeksApis.terminalOrder(devId, orderBody);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(String devId, String cap_id, String relevance_id) {
+        return mGeeksApis.getTerminalProp(devId, cap_id, relevance_id);
     }
 
 }

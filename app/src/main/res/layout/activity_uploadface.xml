@@ -30,6 +30,9 @@
         android:text="图片上传" />
 
     <TextView
+        android:id="@+id/tv_imgpath"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"

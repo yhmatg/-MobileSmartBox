@@ -43,6 +43,9 @@ public class MainActivity extends BaseActivity {
             case R.id.bt_upload_face:
                 startActivity(new Intent(this, UploadFaceActivity.class));
                 break;
+            case R.id.bt_unlock:
+                startActivity(new Intent(this, UploadFaceActivity.class));
+                break;
         }
     }
 }

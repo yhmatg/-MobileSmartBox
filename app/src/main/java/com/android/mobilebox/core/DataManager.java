@@ -1,6 +1,9 @@
 package com.android.mobilebox.core;
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.FaceBody;
+import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
+import com.android.mobilebox.core.bean.user.TerminalResult;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
@@ -97,8 +100,8 @@ public class DataManager implements HttpHelper, PreferenceHelper {
     }
 
     @Override
-    public Observable<BaseResponse<UserInfo>> updateFace(String id, String faceImg, String faceFeature) {
-        return mHttpHelper.updateFace(id, faceImg, faceFeature);
+    public Observable<BaseResponse<UserInfo>> updateFace(FaceBody faceBody) {
+        return mHttpHelper.updateFace(faceBody);
     }
 
     @Override
@@ -112,8 +115,13 @@ public class DataManager implements HttpHelper, PreferenceHelper {
     }
 
     @Override
-    public Observable<BaseResponse> terminalOrder(String devId, OrderBody orderBody) {
+    public Observable<BaseResponse<OpenResult>> terminalOrder(String devId, OrderBody orderBody) {
         return  mHttpHelper.terminalOrder(devId, orderBody);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(String devId, String cap_id, String relevance_id) {
+        return mHttpHelper.getTerminalProp(devId, cap_id, relevance_id);
     }
 
 

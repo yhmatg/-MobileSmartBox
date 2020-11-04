@@ -11,14 +11,18 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.mobilebox.R;
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
 import com.android.mobilebox.contract.UploadFaceContract;
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
+import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.presenter.UploadFacePresenter;
 import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.ToastUtils;
@@ -36,9 +40,12 @@ import okhttp3.RequestBody;
 public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implements UploadFaceContract.View {
     @BindView(R.id.iv_face)
     ImageView faceView;
+    @BindView(R.id.tv_imgpath)
+    TextView pathText;
     private static final int ACTION_CHOOSE_IMAGE = 0x201;
     private Bitmap mBitmap = null;
     private String path;
+    private String imgPath;
 
 
     @Override
@@ -62,11 +69,24 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
     }
 
     @Override
-    public void handleUploadFace(BaseResponse<UploadFaceResponse> uploadFaceResponseBaseResponse) {
-        if(uploadFaceResponseBaseResponse.getCode() == 200000){
+    public void handleUploadFace(BaseResponse<UploadFaceResponse> uploadFaceResponse) {
+        if(uploadFaceResponse.getCode() == 200000){
             ToastUtils.showShort("人脸头像上传成功");
+            imgPath = uploadFaceResponse.getData().getFaceImage();
+            pathText.setText("图片地址：" + uploadFaceResponse.getData().getFaceImage());
         }else {
+            imgPath = null;
             ToastUtils.showShort("人脸头像上传失败");
+        }
+    }
+
+    @Override
+    public void handleupdateFace(BaseResponse<UserInfo> userInfoResponse) {
+        if(userInfoResponse.getCode() == 200000){
+            ToastUtils.showShort("人脸头像更新成功");
+        }else {
+            imgPath = null;
+            ToastUtils.showShort("人脸头像更新失败");
         }
     }
 
@@ -89,7 +109,15 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
                 }
                 break;
             case R.id.bt_update_pic:
-                chooseLocalImage();
+                if(!StringUtils.isEmpty(imgPath)){
+                    FaceBody faceBody = new FaceBody();
+                    faceBody.setFaceImg(imgPath);
+                    faceBody.setId(3);
+                    mPresenter.updateFace(faceBody);
+                }else {
+                    ToastUtils.showShort("请先上传图片！！！");
+                }
+
                 break;
             default:
                 break;

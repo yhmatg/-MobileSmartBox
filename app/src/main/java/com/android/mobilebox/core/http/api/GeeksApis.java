@@ -1,7 +1,10 @@
 package com.android.mobilebox.core.http.api;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.FaceBody;
+import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
+import com.android.mobilebox.core.bean.user.TerminalResult;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
@@ -37,11 +40,11 @@ public interface GeeksApis {
 
     //人脸头像更新
     @POST("/api/v1/users/updateface")
-    Observable<BaseResponse<UserInfo>> updateFace(@Query("id") String id, @Query("faceImg") String faceImg, @Query("faceFeature") String faceFeature);
+    Observable<BaseResponse<UserInfo>> updateFace(@Body FaceBody faceBody);
 
     //人脸头像特征值更新
     @POST("/api/v1/users/updateFeature")
-    Observable<BaseResponse<UserInfo>> updateFeature(@Query("id") String id, @Query("faceImg") String faceImg, @Query("faceFeature") String faceFeature);
+    Observable<BaseResponse<UserInfo>> updateFeature(@Query("id") String id, @Query("faceFeature") String faceFeature);
 
     //根据用户id获取用户信息
     @GET("/api/v1/users/{userId}")
@@ -53,5 +56,10 @@ public interface GeeksApis {
 
     //终端指令管理，远程开锁等
     @POST("/api/v1/terminalctl/devices/{dev_id}/insts")
-    Observable<BaseResponse> terminalOrder(@Path("dev_id") String devId, @Body OrderBody orderBody);
+    Observable<BaseResponse<OpenResult>> terminalOrder(@Path("dev_id") String devId, @Body OrderBody orderBody);
+
+    //移动端查询终端操作记录结果属性
+    @POST("/api/v1/properties/devices/{dev_id}")
+    Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(@Path("dev_id") String devId,@Query("cap_id") String cap_id, @Query("relevance_id") String relevance_id);
+
 }
