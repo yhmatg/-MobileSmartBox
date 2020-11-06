@@ -116,5 +116,27 @@ public class OpenResult {
         public void setEkey(String ekey) {
             this.ekey = ekey;
         }
+
+        @Override
+        public String toString() {
+            return "InstData{" +
+                    "relevanceId='" + relevanceId + '\'' +
+                    ", ekey='" + ekey + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "OpenResult{" +
+                "capId='" + capId + '\'' +
+                ", devId='" + devId + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", id='" + id + '\'' +
+                ", instData=" + instData +
+                ", instName='" + instName + '\'' +
+                ", instStatus='" + instStatus + '\'' +
+                '}';
     }
 }

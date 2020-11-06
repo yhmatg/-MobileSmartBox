@@ -2,6 +2,8 @@ package com.android.mobilebox.core.http;
 
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
+import com.android.mobilebox.core.bean.user.NewOrderBody;
+import com.android.mobilebox.core.bean.user.NewOrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.TerminalResult;
@@ -81,8 +83,18 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(String devId, String cap_id, String relevance_id) {
-        return mGeeksApis.getTerminalProp(devId, cap_id, relevance_id);
+    public Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(String devId, String relevance_id) {
+        return mGeeksApis.getTerminalProp(devId, relevance_id);
+    }
+
+    @Override
+    public Observable<BaseResponse<UserInfo>> addUser(LoginUser loginUser) {
+        return mGeeksApis.addUser(loginUser);
+    }
+
+    @Override
+    public Observable<BaseResponse<NewOrderResponse>> newOrder(String devId, NewOrderBody newOrderBody) {
+        return mGeeksApis.newOrder(devId, newOrderBody);
     }
 
 }

@@ -2,6 +2,7 @@ package com.android.mobilebox.core.http.api;
 
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
+import com.android.mobilebox.core.bean.user.NewOrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.TerminalResult;
@@ -9,6 +10,7 @@ import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
+import com.android.mobilebox.core.bean.user.NewOrderBody;
 
 import java.util.List;
 
@@ -42,24 +44,27 @@ public interface GeeksApis {
     @POST("/api/v1/users/updateface")
     Observable<BaseResponse<UserInfo>> updateFace(@Body FaceBody faceBody);
 
-    //人脸头像特征值更新
-    @POST("/api/v1/users/updateFeature")
-    Observable<BaseResponse<UserInfo>> updateFeature(@Query("id") String id, @Query("faceFeature") String faceFeature);
-
     //根据用户id获取用户信息
     @GET("/api/v1/users/{userId}")
     Observable<BaseResponse<UserInfo>> getUserInfoById(@Path("userId") String userId);
 
     //获取所有用户信息
-    @GET("/api/v1/users/{userId}")
+    @GET("/api/v1/users")
     Observable<BaseResponse<List<UserInfo>>> getAllUserInfo();
+
+    //添加用户
+    @POST("/api/v1/users")
+    Observable<BaseResponse<UserInfo>> addUser(@Body LoginUser loginUser);
 
     //终端指令管理，远程开锁等
     @POST("/api/v1/terminalctl/devices/{dev_id}/insts")
     Observable<BaseResponse<OpenResult>> terminalOrder(@Path("dev_id") String devId, @Body OrderBody orderBody);
 
     //移动端查询终端操作记录结果属性
-    @POST("/api/v1/properties/devices/{dev_id}")
-    Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(@Path("dev_id") String devId,@Query("cap_id") String cap_id, @Query("relevance_id") String relevance_id);
+    @GET("/api/v1/properties/devices/{dev_id}")
+    Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(@Path("dev_id") String devId, @Query("relevance_id") String relevance_id);
 
+    //创建操作单
+    @POST("/api/v1/actreoords/devices/{dev_id}/")
+    Observable<BaseResponse<NewOrderResponse>> newOrder(@Path("dev_id") String devId, @Body NewOrderBody newOrderBody);
 }

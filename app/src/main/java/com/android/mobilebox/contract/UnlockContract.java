@@ -3,6 +3,8 @@ package com.android.mobilebox.contract;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
 import com.android.mobilebox.base.view.AbstractView;
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.NewOrderBody;
+import com.android.mobilebox.core.bean.user.NewOrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.TerminalResult;
@@ -24,6 +26,8 @@ public interface UnlockContract {
 
         void handleGetTerminalProp(BaseResponse<List<TerminalResult>> terminalPropResponse);
 
+        void handleNewOrder(BaseResponse<NewOrderResponse> NewOrderResponse);
+
     }
 
     interface Presenter extends AbstractPresenter<View> {
@@ -31,6 +35,8 @@ public interface UnlockContract {
         void terminalOrder(String devId, OrderBody orderBody);
 
         //查询远程终端设备操作属性
-        void getTerminalProp( String devId, String cap_id, String relevance_id);
+        void getTerminalProp( String devId, String relevance_id);
+
+        void newOrder(String devId, NewOrderBody newOrderBody);
     }
 }

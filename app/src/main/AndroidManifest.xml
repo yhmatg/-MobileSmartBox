@@ -24,6 +24,9 @@
         <activity
             android:name=".ui.uploadface.UploadFaceActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.unlock.UnlockActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
