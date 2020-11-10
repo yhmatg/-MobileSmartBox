@@ -39,6 +39,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implements UploadFaceContract.View {
+    @BindView(R.id.title_content)
+    TextView mTitle;
     @BindView(R.id.iv_face)
     ImageView faceView;
     @BindView(R.id.tv_imgpath)
@@ -56,7 +58,7 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
 
     @Override
     protected void initEventAndData() {
-
+        mTitle.setText("头像更新");
     }
 
     @Override
@@ -71,11 +73,11 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
 
     @Override
     public void handleUploadFace(BaseResponse<UploadFaceResponse> uploadFaceResponse) {
-        if(uploadFaceResponse.getCode() == 200000){
+        if (uploadFaceResponse.getCode() == 200000) {
             ToastUtils.showShort("人脸头像上传成功");
             imgPath = uploadFaceResponse.getData().getFaceImage();
             pathText.setText("图片地址：" + uploadFaceResponse.getData().getFaceImage());
-        }else {
+        } else {
             imgPath = null;
             ToastUtils.showShort("人脸头像上传失败");
         }
@@ -83,24 +85,24 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
 
     @Override
     public void handleupdateFace(BaseResponse<UserInfo> userInfoResponse) {
-        if(userInfoResponse.getCode() == 200000){
+        if (userInfoResponse.getCode() == 200000) {
             ToastUtils.showShort("人脸头像更新成功");
-        }else {
+        } else {
             imgPath = null;
             ToastUtils.showShort("人脸头像更新失败");
         }
     }
 
-    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic,R.id.bt_update_pic})
+    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic, R.id.bt_update_pic, R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.bt_choose_pic:
                 chooseLocalImage();
                 break;
             case R.id.bt_upload_pic:
-                if(!StringUtils.isEmpty(path)){
+                if (!StringUtils.isEmpty(path)) {
                     File file = new File(path);
-                    if(file.exists()){
+                    if (file.exists()) {
                         RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
                         //将文件转化为MultipartBody.Part
                         //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
@@ -110,18 +112,19 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
                 }
                 break;
             case R.id.bt_update_pic:
-                if(!StringUtils.isEmpty(imgPath)){
+                if (!StringUtils.isEmpty(imgPath)) {
                     FaceBody faceBody = new FaceBody();
                     faceBody.setFaceImg(imgPath);
                     //faceBody.setId(SmartBoxApplication.getInstance().getUserResponse().getId());
                     //暂时测试使用
                     faceBody.setId(3);
                     mPresenter.updateFace(faceBody);
-                }else {
+                } else {
                     ToastUtils.showShort("请先上传图片！！！");
                 }
                 break;
-            default:
+            case R.id.title_back:
+                finish();
                 break;
         }
     }

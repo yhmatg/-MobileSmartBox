@@ -1,6 +1,7 @@
 package com.android.mobilebox.core;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.AddUserBody;
+import com.android.mobilebox.core.bean.user.DeviceResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
 import com.android.mobilebox.core.bean.user.NewOrderResponse;
@@ -135,6 +136,11 @@ public class DataManager implements HttpHelper, PreferenceHelper {
     @Override
     public Observable<BaseResponse<NewOrderResponse>> newOrder(String devId, NewOrderBody newOrderBody) {
         return mHttpHelper.newOrder(devId, newOrderBody);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<DeviceResponse>>> getAllDevices() {
+        return mHttpHelper.getAllDevices();
     }
 
 }

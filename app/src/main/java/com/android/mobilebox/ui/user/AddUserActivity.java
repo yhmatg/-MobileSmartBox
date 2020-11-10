@@ -40,6 +40,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class AddUserActivity extends BaseActivity<AddUserPresenter> implements AddUserContract.View {
+    @BindView(R.id.title_content)
+    TextView mTitle;
     @BindView(R.id.iv_face)
     ImageView faceView;
     @BindView(R.id.tv_imgpath)
@@ -61,7 +63,7 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
 
     @Override
     protected void initEventAndData() {
-
+        mTitle.setText("添加用户");
     }
 
     @Override
@@ -95,7 +97,7 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
         }
     }
 
-    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic,R.id.bt_add_user})
+    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic,R.id.bt_add_user,R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.bt_choose_pic:
@@ -131,6 +133,9 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
                 addUserBody.setPassword(passwordEt.getText().toString());
                 addUserBody.setFaceImg(pathText.getText().toString());
                 mPresenter.addUser(addUserBody);
+                break;
+            case R.id.title_back:
+                finish();
                 break;
         }
     }

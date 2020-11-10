@@ -5,6 +5,8 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <include layout="@layout/title_layout" />
+
     <ImageView
         android:id="@+id/iv_face"
         android:layout_width="wrap_content"
@@ -13,8 +15,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="300dp"
         android:minWidth="200dp"
-        android:src="@drawable/user_icon"
-        android:minHeight="200dp" />
+        android:minHeight="200dp"
+        android:src="@drawable/user_icon" />
 
     <Button
         android:id="@+id/bt_choose_pic"

@@ -2,6 +2,7 @@ package com.android.mobilebox.core.http.api;
 
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.AddUserBody;
+import com.android.mobilebox.core.bean.user.DeviceResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.NewOrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
@@ -68,4 +69,8 @@ public interface GeeksApis {
     //创建操作单
     @POST("/api/v1/actreoords/devices/{dev_id}/")
     Observable<BaseResponse<NewOrderResponse>> newOrder(@Path("dev_id") String devId, @Body NewOrderBody newOrderBody);
+
+    //查询所有的终端设备
+    @GET("/api/v1/iotterminals")
+    Observable<BaseResponse<List<DeviceResponse>>> getAllDevices();
 }

@@ -2,6 +2,7 @@ package com.android.mobilebox.core.http;
 
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.AddUserBody;
+import com.android.mobilebox.core.bean.user.DeviceResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
 import com.android.mobilebox.core.bean.user.NewOrderResponse;
@@ -96,6 +97,11 @@ public class HttpHelperImpl implements HttpHelper {
     @Override
     public Observable<BaseResponse<NewOrderResponse>> newOrder(String devId, NewOrderBody newOrderBody) {
         return mGeeksApis.newOrder(devId, newOrderBody);
+    }
+
+    @Override
+    public Observable<BaseResponse<List<DeviceResponse>>> getAllDevices() {
+        return mGeeksApis.getAllDevices();
     }
 
 }

@@ -22,9 +22,9 @@
 
    <Button
        android:layout_marginTop="@dimen/dp_30"
-       android:id="@+id/bt_unlock"
+       android:id="@+id/bt_devices"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="远程开锁"/>
+       android:text="设备列表"/>
 
 </LinearLayout>

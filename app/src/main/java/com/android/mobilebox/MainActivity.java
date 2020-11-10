@@ -7,6 +7,7 @@ import android.view.View;
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
 import com.android.mobilebox.contract.AddUserContract;
+import com.android.mobilebox.ui.unlock.DeviceActivity;
 import com.android.mobilebox.ui.unlock.UnlockActivity;
 import com.android.mobilebox.ui.uploadface.UploadFaceActivity;
 import com.android.mobilebox.ui.user.AddUserActivity;
@@ -40,14 +41,14 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.bt_upload_face,R.id.bt_unlock,R.id.bt_add_user})
+    @OnClick({R.id.bt_upload_face,R.id.bt_devices,R.id.bt_add_user})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.bt_upload_face:
                 startActivity(new Intent(this, UploadFaceActivity.class));
                 break;
-            case R.id.bt_unlock:
-                startActivity(new Intent(this, UnlockActivity.class));
+            case R.id.bt_devices:
+                startActivity(new Intent(this, DeviceActivity.class));
                 break;
             case R.id.bt_add_user:
                 startActivity(new Intent(this, AddUserActivity.class));

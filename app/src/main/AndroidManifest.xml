@@ -27,9 +27,12 @@
         <activity
             android:name=".ui.unlock.UnlockActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.user.AddUserActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity
+            android:name=".ui.user.AddUserActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.unlock.DeviceActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
