@@ -1,6 +1,7 @@
 package com.android.mobilebox.core.http.api;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.AddUserBody;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.NewOrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
@@ -54,7 +55,7 @@ public interface GeeksApis {
 
     //添加用户
     @POST("/api/v1/users")
-    Observable<BaseResponse<UserInfo>> addUser(@Body LoginUser loginUser);
+    Observable<BaseResponse<UserInfo>> addUser(@Body AddUserBody addUserBody);
 
     //终端指令管理，远程开锁等
     @POST("/api/v1/terminalctl/devices/{dev_id}/insts")

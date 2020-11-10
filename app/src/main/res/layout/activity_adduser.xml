@@ -13,8 +13,8 @@
         android:adjustViewBounds="true"
         android:maxHeight="300dp"
         android:minWidth="200dp"
-        android:minHeight="200dp"
-        android:src="@drawable/user_icon" />
+        android:src="@drawable/user_icon"
+        android:minHeight="200dp" />
 
     <Button
         android:id="@+id/bt_choose_pic"
@@ -39,10 +39,32 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:text="图片地址：" />
 
+    <EditText
+        android:id="@+id/edit_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="用户名"
+        android:inputType="textNoSuggestions"
+        android:textSize="@dimen/sp_14" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="密码"
+        android:inputType="textNoSuggestions"
+        android:textSize="@dimen/sp_14" />
+
     <Button
-        android:id="@+id/bt_update_pic"
+        android:id="@+id/bt_add_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="头像更新" />
+        android:text="添加用户" />
 </LinearLayout>

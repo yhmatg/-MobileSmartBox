@@ -1,6 +1,7 @@
 package com.android.mobilebox.core.http;
 
 import com.android.mobilebox.core.bean.BaseResponse;
+import com.android.mobilebox.core.bean.user.AddUserBody;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
 import com.android.mobilebox.core.bean.user.NewOrderResponse;
@@ -88,8 +89,8 @@ public class HttpHelperImpl implements HttpHelper {
     }
 
     @Override
-    public Observable<BaseResponse<UserInfo>> addUser(LoginUser loginUser) {
-        return mGeeksApis.addUser(loginUser);
+    public Observable<BaseResponse<UserInfo>> addUser(AddUserBody addUserBody) {
+        return mGeeksApis.addUser(addUserBody);
     }
 
     @Override
