@@ -24,7 +24,7 @@ public interface UnlockContract {
 
         void handleTerminalOrder(BaseResponse<OpenResult> terminalOrderResponse);
 
-        void handleGetTerminalProp(BaseResponse<List<TerminalResult>> terminalPropResponse);
+        void handleGetTerminalProp(BaseResponse<List<TerminalResult>> terminalPropResponse, boolean isAll);
 
         void handleNewOrder(BaseResponse<NewOrderResponse> NewOrderResponse);
 
@@ -35,7 +35,7 @@ public interface UnlockContract {
         void terminalOrder(String devId, OrderBody orderBody);
 
         //查询远程终端设备操作属性
-        void getTerminalProp( String devId, String relevance_id);
+        void getTerminalProp(String devId, String relevance_id, boolean isAll);
 
         void newOrder(String devId, NewOrderBody newOrderBody);
     }

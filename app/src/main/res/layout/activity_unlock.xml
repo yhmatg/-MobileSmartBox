@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/title_layout" />
+
     <Button
         android:id="@+id/bt_new_order"
         android:layout_width="match_parent"
@@ -33,5 +35,17 @@
         android:layout_marginTop="@dimen/dp_20"
         android:text="开锁结果"
         android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_18"
+        android:text="操作记录" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_records"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

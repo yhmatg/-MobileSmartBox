@@ -1,5 +1,7 @@
 package com.android.mobilebox.ui.unlock;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.ToastUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,10 +36,17 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
     private static String deviceId = "15aa68f3183311ebb7260242ac120004_uniqueCode002";
     private static String capId = "e684ea3f18cc11ebb7260242ac120004";
     private static String instName = "openKey";
+    @BindView(R.id.title_content)
+    TextView mTitle;
     @BindView(R.id.tv_order_result)
     TextView newOrderResult;
     @BindView(R.id.tv_unlock_result)
     TextView unlockResult;
+    @BindView(R.id.rv_records)
+    RecyclerView mRecycleView;
+    RecordAdapter mAdapter;
+    List<TerminalResult> mData = new ArrayList<>();
+
 
     @Override
     public UnlockPresenter initPresenter() {
@@ -45,7 +55,11 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
 
     @Override
     protected void initEventAndData() {
-
+        mTitle.setText("设备详情");
+        mAdapter = new RecordAdapter(this, mData);
+        mRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        mRecycleView.setAdapter(mAdapter);
+        mPresenter.getTerminalProp(deviceId, "", true);
     }
 
     @Override
@@ -73,25 +87,32 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
     }
 
     @Override
-    public void handleGetTerminalProp(BaseResponse<List<TerminalResult>> terminalPropResponse) {
+    public void handleGetTerminalProp(BaseResponse<List<TerminalResult>> terminalPropResponse, boolean isAll) {
         if (200000 == terminalPropResponse.getCode()) {
-            String result = "";
-            List<TerminalResult> data = terminalPropResponse.getData();
-            if(data.size() > 0){
-                result += "操作单号：" + data.get(0).getRelevance_id() + "\n";
-            }
-            for (TerminalResult datum : data) {
-                if("id1".equals(datum.getCap_id())){
-                    result += "开锁完成" +"\n";
-                }else if("id2".equals(datum.getCap_id())){
-                    result += "关锁完成" +"\n";
-                }else if("id3".equals(datum.getCap_id())){
-                    result += "盘点上报完成" +"\n";
-                    result += "   存件：" + datum.getProp().getRfid_in()+"\n";
-                    result += "   取件：" + datum.getProp().getRfid_out()+"\n";
+            if (isAll) {
+                mData.clear();
+                mData.addAll(terminalPropResponse.getData());
+                mAdapter.notifyDataSetChanged();
+            } else {
+                String result = "";
+                List<TerminalResult> data = terminalPropResponse.getData();
+                if (data.size() > 0) {
+                    result += "操作单号：" + data.get(0).getRelevance_id() + "\n";
                 }
+                for (TerminalResult datum : data) {
+                    if ("id1".equals(datum.getCap_id())) {
+                        result += "开锁完成" + "\n";
+                    } else if ("id2".equals(datum.getCap_id())) {
+                        result += "关锁完成" + "\n";
+                    } else if ("id3".equals(datum.getCap_id())) {
+                        result += "盘点上报完成" + "\n";
+                        result += "   存件：" + datum.getProp().getRfid_in() + "\n";
+                        result += "   取件：" + datum.getProp().getRfid_out() + "\n";
+                    }
+                }
+                unlockResult.setText(result);
             }
-            unlockResult.setText(result);
+
         } else {
             ToastUtils.showShort("获取终端设备操作结果失败");
         }
@@ -111,7 +132,7 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
         }
     }
 
-    @OnClick({R.id.bt_new_order, R.id.bt_unlock})
+    @OnClick({R.id.bt_new_order, R.id.bt_unlock, R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.bt_new_order:
@@ -135,6 +156,9 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
                 } else {
                     ToastUtils.showShort("请先创建操作单");
                 }
+                break;
+            case R.id.title_back:
+                finish();
                 break;
         }
     }

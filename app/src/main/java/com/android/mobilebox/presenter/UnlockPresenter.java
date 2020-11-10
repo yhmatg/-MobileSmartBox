@@ -41,7 +41,7 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
                     public void accept(BaseResponse<OpenResult> openResultBaseResponse) throws Exception {
                         if (200000 == openResultBaseResponse.getCode()) {
                             //开锁指定请求成功，开始查询终端操作状态
-                            getTerminalProp(devId, openResultBaseResponse.getData().getInstData().getRelevanceId());
+                            getTerminalProp(devId, openResultBaseResponse.getData().getInstData().getRelevanceId(),false);
                         }
                     }
                 })
@@ -59,34 +59,36 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
     }
 
     @Override
-    public void getTerminalProp(String devId, String relevance_id) {
+    public void getTerminalProp(String devId, String relevance_id, boolean isAll) {
         addSubscribe(DataManager.getInstance().getTerminalProp(devId, relevance_id)
                 .compose(RxUtils.rxSchedulerHelper())
                 .doOnNext(new Consumer<BaseResponse<List<TerminalResult>>>() {
                     @Override
                     public void accept(BaseResponse<List<TerminalResult>> listBaseResponse) throws Exception {
-                        List<TerminalResult> data = listBaseResponse.getData();
-                        boolean isInvReported = false;
-                        for (TerminalResult datum : data) {
-                            if ("id3".equals(datum.getCap_id())) {
-                                isInvReported = true;
-                                break;
-                            }
-                        }
-                        if (!isInvReported) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    getTerminalProp(devId, relevance_id);
+                        if(!isAll){
+                            List<TerminalResult> data = listBaseResponse.getData();
+                            boolean isInvReported = false;
+                            for (TerminalResult datum : data) {
+                                if ("id3".equals(datum.getCap_id())) {
+                                    isInvReported = true;
+                                    break;
                                 }
-                            }, 2000);
+                            }
+                            if (!isInvReported) {
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        getTerminalProp(devId, relevance_id,isAll);
+                                    }
+                                }, 2000);
+                            }
                         }
                     }
                 })
                 .subscribeWith(new BaseObserver<BaseResponse<List<TerminalResult>>>(mView, false) {
                     @Override
                     public void onNext(BaseResponse<List<TerminalResult>> listBaseResponse) {
-                        mView.handleGetTerminalProp(listBaseResponse);
+                        mView.handleGetTerminalProp(listBaseResponse,isAll);
                     }
 
                     @Override
