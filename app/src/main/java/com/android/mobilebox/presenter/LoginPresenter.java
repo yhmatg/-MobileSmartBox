@@ -1,5 +1,6 @@
 package com.android.mobilebox.presenter;
 
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.base.presenter.BasePresenter;
 import com.android.mobilebox.contract.LoginContract;
 import com.android.mobilebox.core.DataManager;
@@ -45,9 +46,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                         DataManager.getInstance().setToken(userLoginResponse.getData().getToken());
                         DataManager.getInstance().setLoginAccount(loginUser.getUsername());
                         DataManager.getInstance().setLoginPassword(loginUser.getPassword());
+                        SmartBoxApplication.getInstance().setUserResponse(userLoginResponse.getData());
                         mView.startMainActivity();
                     }
-
                 }
             }));
         }

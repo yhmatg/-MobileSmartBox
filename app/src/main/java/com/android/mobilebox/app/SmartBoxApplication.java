@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.android.mobilebox.BuildConfig;
 import com.android.mobilebox.R;
+import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.utils.Utils;
 import com.android.mobilebox.utils.logger.MyCrashListener;
 import com.android.mobilebox.utils.logger.TxtFormatStrategy;
@@ -29,6 +30,7 @@ public class SmartBoxApplication extends Application {
 
     private static SmartBoxApplication instance;
     private RefWatcher refWatcher;
+    private UserLoginResponse userResponse;
     public static synchronized SmartBoxApplication getInstance() {
         return instance;
     }
@@ -89,4 +91,11 @@ public class SmartBoxApplication extends Application {
                 tag(getString(R.string.app_name)).build(getPackageName(), getString(R.string.app_name))));
     }
 
+    public UserLoginResponse getUserResponse() {
+        return userResponse;
+    }
+
+    public void setUserResponse(UserLoginResponse userResponse) {
+        this.userResponse = userResponse;
+    }
 }

@@ -8,10 +8,17 @@
 
    <Button
        android:layout_marginTop="@dimen/dp_30"
+       android:id="@+id/bt_add_user"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="添加用户"/>
+
+   <Button
+       android:layout_marginTop="@dimen/dp_30"
        android:id="@+id/bt_upload_face"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="头像上传 更新"/>
+       android:text="头像更新"/>
 
    <Button
        android:layout_marginTop="@dimen/dp_30"
@@ -19,12 +26,5 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="远程开锁"/>
-
-   <Button
-       android:layout_marginTop="@dimen/dp_30"
-       android:id="@+id/bt_add_user"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="添加用户"/>
 
 </LinearLayout>

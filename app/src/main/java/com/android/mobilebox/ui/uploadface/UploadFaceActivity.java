@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mobilebox.R;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
 import com.android.mobilebox.contract.UploadFaceContract;
@@ -112,12 +113,13 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
                 if(!StringUtils.isEmpty(imgPath)){
                     FaceBody faceBody = new FaceBody();
                     faceBody.setFaceImg(imgPath);
+                    //faceBody.setId(SmartBoxApplication.getInstance().getUserResponse().getId());
+                    //暂时测试使用
                     faceBody.setId(3);
                     mPresenter.updateFace(faceBody);
                 }else {
                     ToastUtils.showShort("请先上传图片！！！");
                 }
-
                 break;
             default:
                 break;
