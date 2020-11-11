@@ -78,11 +78,11 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
 
     @Override
     public void handleUploadFace(BaseResponse<UploadFaceResponse> uploadFaceResponse) {
-        if(uploadFaceResponse.getCode() == 200000){
+        if (uploadFaceResponse.getCode() == 200000) {
             ToastUtils.showShort("人脸头像上传成功");
             imgPath = uploadFaceResponse.getData().getFaceImage();
             pathText.setText("图片地址：" + uploadFaceResponse.getData().getFaceImage());
-        }else {
+        } else {
             imgPath = null;
             ToastUtils.showShort("人脸头像上传失败");
         }
@@ -90,23 +90,23 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
 
     @Override
     public void handleAddUser(BaseResponse<UserInfo> userInfoResponse) {
-        if(userInfoResponse.getCode() == 200000){
+        if (userInfoResponse.getCode() == 200000) {
             ToastUtils.showShort("添加用户成功");
-        }else {
+        } else {
             ToastUtils.showShort("添加用户失败");
         }
     }
 
-    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic,R.id.bt_add_user,R.id.title_back})
+    @OnClick({R.id.iv_face, R.id.bt_upload_pic, R.id.bt_add_user, R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_choose_pic:
+            case R.id.iv_face:
                 chooseLocalImage();
                 break;
             case R.id.bt_upload_pic:
-                if(!StringUtils.isEmpty(path)){
+                if (!StringUtils.isEmpty(path)) {
                     File file = new File(path);
-                    if(file.exists()){
+                    if (file.exists()) {
                         RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
                         //将文件转化为MultipartBody.Part
                         //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
@@ -116,15 +116,15 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
                 }
                 break;
             case R.id.bt_add_user:
-                if(StringUtils.isEmpty(accountEt.getText().toString())){
+                if (StringUtils.isEmpty(accountEt.getText().toString())) {
                     ToastUtils.showShort("用户名不能为空！");
                     return;
                 }
-                if(StringUtils.isEmpty(passwordEt.getText().toString())){
+                if (StringUtils.isEmpty(passwordEt.getText().toString())) {
                     ToastUtils.showShort("密码不能为空！");
                     return;
                 }
-                if(StringUtils.isEmpty(pathText.getText().toString())){
+                if (StringUtils.isEmpty(pathText.getText().toString())) {
                     ToastUtils.showShort("用户头像不能为空！");
                     return;
                 }
@@ -149,7 +149,7 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACTION_CHOOSE_IMAGE) {
+        if (requestCode == ACTION_CHOOSE_IMAGE && resultCode != 0) {
             if (data == null || data.getData() == null) {
                 showToast(getString(R.string.get_picture_failed));
                 return;
@@ -169,6 +169,12 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
             Glide.with(this)
                     .load(mBitmap)
                     .into(faceView);
+            File file = new File(path);
+            RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
+            //将文件转化为MultipartBody.Part
+            //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), imgBody);
+            mPresenter.uploadFace(filePart);
         }
     }
 

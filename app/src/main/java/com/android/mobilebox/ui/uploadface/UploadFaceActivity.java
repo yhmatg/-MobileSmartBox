@@ -24,6 +24,7 @@ import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
+import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.presenter.UploadFacePresenter;
 import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.ToastUtils;
@@ -93,14 +94,14 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
         }
     }
 
-    @OnClick({R.id.bt_choose_pic, R.id.bt_upload_pic, R.id.bt_update_pic, R.id.title_back})
+    @OnClick({R.id.iv_face, R.id.bt_upload_pic, R.id.bt_update_pic, R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_choose_pic:
+            case R.id.iv_face:
                 chooseLocalImage();
                 break;
             case R.id.bt_upload_pic:
-                if (!StringUtils.isEmpty(path)) {
+               /* if (!StringUtils.isEmpty(path)) {
                     File file = new File(path);
                     if (file.exists()) {
                         RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -109,7 +110,7 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
                         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), imgBody);
                         mPresenter.uploadFace(filePart);
                     }
-                }
+                }*/
                 break;
             case R.id.bt_update_pic:
                 if (!StringUtils.isEmpty(imgPath)) {
@@ -117,7 +118,10 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
                     faceBody.setFaceImg(imgPath);
                     //faceBody.setId(SmartBoxApplication.getInstance().getUserResponse().getId());
                     //暂时测试使用
-                    faceBody.setId(3);
+                    UserLoginResponse.LoginUser loginUser = SmartBoxApplication.getInstance().getUserResponse().getLoginUser();
+                    if (loginUser != null) {
+                        faceBody.setId(loginUser.getId());
+                    }
                     mPresenter.updateFace(faceBody);
                 } else {
                     ToastUtils.showShort("请先上传图片！！！");
@@ -138,7 +142,7 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACTION_CHOOSE_IMAGE) {
+        if (requestCode == ACTION_CHOOSE_IMAGE && resultCode != 0) {
             if (data == null || data.getData() == null) {
                 showToast(getString(R.string.get_picture_failed));
                 return;
@@ -158,6 +162,15 @@ public class UploadFaceActivity extends BaseActivity<UploadFacePresenter> implem
             Glide.with(this)
                     .load(mBitmap)
                     .into(faceView);
+            //图片上传
+            File file = new File(path);
+            if (file.exists()) {
+                RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
+                //将文件转化为MultipartBody.Part
+                //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
+                MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), imgBody);
+                mPresenter.uploadFace(filePart);
+            }
         }
     }
 

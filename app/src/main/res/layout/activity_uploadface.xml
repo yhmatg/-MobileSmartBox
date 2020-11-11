@@ -18,13 +18,7 @@
         android:src="@drawable/user_icon" />
 
     <Button
-        android:id="@+id/bt_choose_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sp_20"
-        android:text="选择图片" />
-
-    <Button
+        android:visibility="gone"
         android:id="@+id/bt_upload_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

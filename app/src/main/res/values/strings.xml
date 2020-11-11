@@ -9,7 +9,7 @@
     <string name="login">登录</string>
     <string name="login_hint">手机/邮箱/用户名</string>
     <string name="user_passward">密码</string>
-    <string name="get_picture_failed">获取图片失败</string>
+    <string name="get_picture_failed">获取图片失败，请重新选择图片上传</string>
     <string name="update_icon">更新头像</string>
     <string name="add_user">添加用户</string>
 </resources>
