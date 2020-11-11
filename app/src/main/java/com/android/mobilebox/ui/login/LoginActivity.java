@@ -21,6 +21,7 @@ import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.http.api.GeeksApis;
 import com.android.mobilebox.core.http.client.RetrofitClient;
 import com.android.mobilebox.presenter.LoginPresenter;
+import com.android.mobilebox.ui.unlock.DeviceActivity;
 import com.android.mobilebox.utils.RxUtils;
 
 import java.io.File;
@@ -161,6 +162,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void startMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, DeviceActivity.class));
+        finish();
     }
 }
