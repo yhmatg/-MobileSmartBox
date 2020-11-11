@@ -7,21 +7,6 @@
     <include layout="@layout/title_layout" />
 
     <Button
-        android:id="@+id/bt_new_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_20"
-        android:text="创建操作单" />
-
-    <TextView
-        android:id="@+id/tv_order_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_20"
-        android:text="操作单结果"
-        android:textSize="@dimen/sp_16" />
-
-    <Button
         android:id="@+id/bt_unlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,10 +15,11 @@
 
     <TextView
         android:id="@+id/tv_unlock_result"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="开锁结果"
+        android:text="进度状态"
         android:textSize="@dimen/sp_16" />
 
     <TextView

@@ -71,7 +71,7 @@ public interface GeeksApis {
     Observable<BaseResponse<List<OrderResponse>>> getAllOrders(@Query("dev_id") String devId, @Query("act_type") String actType);
 
     //创建操作单
-    @POST("/api/v1/actreoords/devices/{dev_id}/")
+    @POST("/api/v1/actrecords/devices/{dev_id}/")
     Observable<BaseResponse<OrderResponse>> newOrder(@Path("dev_id") String devId, @Body NewOrderBody newOrderBody);
 
     //查询所有的终端设备

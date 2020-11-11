@@ -33,8 +33,6 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
     private static String instName = "openKey";
     @BindView(R.id.title_content)
     TextView mTitle;
-    @BindView(R.id.tv_order_result)
-    TextView newOrderResult;
     @BindView(R.id.tv_unlock_result)
     TextView unlockResult;
     @BindView(R.id.rv_records)
@@ -54,7 +52,7 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
         mAdapter = new RecordAdapter(this, mData);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
         mRecycleView.setAdapter(mAdapter);
-        mPresenter.getAllOrders(deviceId,"");
+        mPresenter.getAllOrders(deviceId, "");
     }
 
     @Override
@@ -115,7 +113,7 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
             result += "设备号：" + newOrderResponse.getData().getDevId() + "\n";
             result += "操作：" + newOrderResponse.getData().getActType() + "\n";
             result += "操作单号：" + newOrderResponse.getData().getRelevanceId() + "\n";
-            newOrderResult.setText(result);
+            unlockResult.setText(result);
         } else {
             orderUuid = null;
             ToastUtils.showShort("创建操作单失败");
@@ -132,30 +130,16 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
 
     }
 
-    @OnClick({R.id.bt_new_order, R.id.bt_unlock, R.id.title_back})
+    @OnClick({R.id.bt_unlock, R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_new_order:
+            case R.id.bt_unlock:
                 NewOrderBody newOrderBody = new NewOrderBody();
-                newOrderBody.setActType("取件");
+                newOrderBody.setActType("存取");
                 orderUuid = UUID.randomUUID().toString();
                 newOrderBody.setRelevanceId(orderUuid);
                 newOrderBody.setRemark("remarkOne");
                 mPresenter.newOrder(deviceId, newOrderBody);
-                break;
-            case R.id.bt_unlock:
-                if (!StringUtils.isEmpty(orderUuid)) {
-                    OrderBody orderBody = new OrderBody();
-                    OrderBody.InstData instData = new OrderBody.InstData();
-                    instData.setEkey("on");
-                    instData.setRelevanceId(orderUuid);
-                    orderBody.setInstData(instData);
-                    orderBody.setCapId(capId);
-                    orderBody.setInstName(instName);
-                    mPresenter.terminalOrder(deviceId, orderBody);
-                } else {
-                    ToastUtils.showShort("请先创建操作单");
-                }
                 break;
             case R.id.title_back:
                 finish();
