@@ -7,7 +7,7 @@ import com.android.mobilebox.contract.UnlockContract;
 import com.android.mobilebox.core.DataManager;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
-import com.android.mobilebox.core.bean.user.NewOrderResponse;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.TerminalResult;
@@ -41,7 +41,7 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
                     public void accept(BaseResponse<OpenResult> openResultBaseResponse) throws Exception {
                         if (200000 == openResultBaseResponse.getCode()) {
                             //开锁指定请求成功，开始查询终端操作状态
-                            getTerminalProp(devId, openResultBaseResponse.getData().getInstData().getRelevanceId(),false);
+                            getTerminalProp(devId, openResultBaseResponse.getData().getInstData().getRelevanceId());
                         }
                     }
                 })
@@ -59,13 +59,12 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
     }
 
     @Override
-    public void getTerminalProp(String devId, String relevance_id, boolean isAll) {
+    public void getTerminalProp(String devId, String relevance_id) {
         addSubscribe(DataManager.getInstance().getTerminalProp(devId, relevance_id)
                 .compose(RxUtils.rxSchedulerHelper())
                 .doOnNext(new Consumer<BaseResponse<List<TerminalResult>>>() {
                     @Override
                     public void accept(BaseResponse<List<TerminalResult>> listBaseResponse) throws Exception {
-                        if(!isAll){
                             List<TerminalResult> data = listBaseResponse.getData();
                             boolean isInvReported = false;
                             for (TerminalResult datum : data) {
@@ -78,17 +77,19 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        getTerminalProp(devId, relevance_id,isAll);
+                                        getTerminalProp(devId, relevance_id);
                                     }
                                 }, 2000);
                             }
-                        }
                     }
                 })
                 .subscribeWith(new BaseObserver<BaseResponse<List<TerminalResult>>>(mView, false) {
                     @Override
                     public void onNext(BaseResponse<List<TerminalResult>> listBaseResponse) {
-                        mView.handleGetTerminalProp(listBaseResponse,isAll);
+                        if(mView != null){
+                            mView.handleGetTerminalProp(listBaseResponse);
+                        }
+
                     }
 
                     @Override
@@ -102,11 +103,23 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
     public void newOrder(String devId, NewOrderBody newOrderBody) {
         addSubscribe(DataManager.getInstance().newOrder(devId, newOrderBody)
                 .compose(RxUtils.rxSchedulerHelper())
-                .subscribeWith(new BaseObserver<BaseResponse<NewOrderResponse>>(mView, false) {
+                .subscribeWith(new BaseObserver<BaseResponse<OrderResponse>>(mView, false) {
                     @Override
-                    public void onNext(BaseResponse<NewOrderResponse> newOrderResponse) {
+                    public void onNext(BaseResponse<OrderResponse> newOrderResponse) {
                         mView.handleNewOrder(newOrderResponse);
                     }
                 }));
+    }
+
+    @Override
+    public void getAllOrders(String devId, String actType) {
+        addSubscribe(DataManager.getInstance().getAllOrders(devId, actType)
+        .compose(RxUtils.rxSchedulerHelper())
+        .subscribeWith(new BaseObserver<BaseResponse<List<OrderResponse>>>(mView, false) {
+            @Override
+            public void onNext(BaseResponse<List<OrderResponse>> listBaseResponse) {
+                mView.handleGetAllOrders(listBaseResponse);
+            }
+        }));
     }
 }

@@ -5,7 +5,7 @@ import com.android.mobilebox.core.bean.user.AddUserBody;
 import com.android.mobilebox.core.bean.user.DeviceResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
-import com.android.mobilebox.core.bean.user.NewOrderResponse;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.TerminalResult;
@@ -18,9 +18,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 /**
  * @author yhm
@@ -45,8 +42,10 @@ public interface HttpHelper {
 
     Observable<BaseResponse<UserInfo>> addUser(AddUserBody addUserBody);
 
-    Observable<BaseResponse<NewOrderResponse>> newOrder(String devId, NewOrderBody newOrderBody);
+    Observable<BaseResponse<OrderResponse>> newOrder(String devId, NewOrderBody newOrderBody);
 
     Observable<BaseResponse<List<DeviceResponse>>> getAllDevices();
+
+    Observable<BaseResponse<List<OrderResponse>>> getAllOrders(String devId, String actType);
 
 }

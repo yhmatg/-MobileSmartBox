@@ -6,7 +6,7 @@ package com.android.mobilebox.core.bean.user;
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class NewOrderResponse {
+public class OrderResponse {
 
     /**
      * actType : 取件
@@ -84,7 +84,7 @@ public class NewOrderResponse {
 
     @Override
     public String toString() {
-        return "NewOrderResponse{" +
+        return "OrderResponse{" +
                 "actType='" + actType + '\'' +
                 ", devId='" + devId + '\'' +
                 ", gmtCreate=" + gmtCreate +

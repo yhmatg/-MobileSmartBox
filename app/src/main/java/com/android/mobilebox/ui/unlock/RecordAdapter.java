@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.mobilebox.R;
-import com.android.mobilebox.core.bean.user.TerminalResult;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.utils.DateUtils;
 
 import java.util.List;
@@ -21,9 +21,9 @@ import butterknife.ButterKnife;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
     private Context context;
-    private List<TerminalResult> mData;
+    private List<OrderResponse> mData;
 
-    public RecordAdapter(Context context, List<TerminalResult> mData) {
+    public RecordAdapter(Context context, List<OrderResponse> mData) {
         this.context = context;
         this.mData = mData;
     }
@@ -37,22 +37,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        TerminalResult terminalResult = mData.get(i);
-        if ("id1".equals(terminalResult.getCap_id())) {
-            viewHolder.tvInoutResult.setVisibility(View.GONE);
-            viewHolder.tvOperateType.setText("开锁");
-        } else if ("id2".equals(terminalResult.getCap_id())) {
-            viewHolder.tvInoutResult.setVisibility(View.GONE);
-            viewHolder.tvOperateType.setText("关锁");
-        } else if ("id3".equals(terminalResult.getCap_id())) {
-            viewHolder.tvInoutResult.setVisibility(View.VISIBLE);
-            viewHolder.tvOperateType.setText("存取件");
-            String result= "";
-            result += "   存件：" + terminalResult.getProp().getRfid_in() + "\n";
-            result += "   取件：" + terminalResult.getProp().getRfid_out() + "\n";
-            viewHolder.tvInoutResult.setText(result);
-        }
-        viewHolder.tvOperateTime.setText(DateUtils.long2String(terminalResult.getGmtCreate(),"MM月dd日 hh:mm"));
+        OrderResponse OrderResponse = mData.get(i);
+        viewHolder.tvUserName.setText(String.valueOf(OrderResponse.getUserId()));
+        viewHolder.tvOperateType.setText("存取");
+        viewHolder.tvOperateTime.setText(DateUtils.long2String(OrderResponse.getGmtCreate(),"MM月dd日 hh:mm"));
     }
 
     @Override
@@ -67,8 +55,6 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         TextView tvOperateType;
         @BindView(R.id.tv_operate_time)
         TextView tvOperateTime;
-        @BindView(R.id.tv_inout_result)
-        TextView tvInoutResult;
 
 
         public ViewHolder(@NonNull View view) {

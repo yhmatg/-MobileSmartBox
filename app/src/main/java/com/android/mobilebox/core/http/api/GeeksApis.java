@@ -4,7 +4,7 @@ import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.AddUserBody;
 import com.android.mobilebox.core.bean.user.DeviceResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
-import com.android.mobilebox.core.bean.user.NewOrderResponse;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
 import com.android.mobilebox.core.bean.user.TerminalResult;
@@ -66,9 +66,13 @@ public interface GeeksApis {
     @GET("/api/v1/properties/devices/{dev_id}")
     Observable<BaseResponse<List<TerminalResult>>> getTerminalProp(@Path("dev_id") String devId, @Query("relevance_id") String relevance_id);
 
+    //查询操作单记录
+    @GET("/api/v1/actrecords")
+    Observable<BaseResponse<List<OrderResponse>>> getAllOrders(@Query("dev_id") String devId, @Query("act_type") String actType);
+
     //创建操作单
     @POST("/api/v1/actreoords/devices/{dev_id}/")
-    Observable<BaseResponse<NewOrderResponse>> newOrder(@Path("dev_id") String devId, @Body NewOrderBody newOrderBody);
+    Observable<BaseResponse<OrderResponse>> newOrder(@Path("dev_id") String devId, @Body NewOrderBody newOrderBody);
 
     //查询所有的终端设备
     @GET("/api/v1/iotterminals")
