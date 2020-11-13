@@ -3,6 +3,7 @@ package com.android.mobilebox.presenter;
 import android.os.Handler;
 import android.util.Log;
 
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.base.presenter.BasePresenter;
 import com.android.mobilebox.contract.UnlockContract;
 import com.android.mobilebox.core.DataManager;
@@ -102,6 +103,7 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
                             OrderBody.InstData instData = new OrderBody.InstData();
                             instData.setEkey("on");
                             instData.setRelevanceId(orderResponseBaseResponse.getData().getRelevanceId());
+                            instData.setUserId(SmartBoxApplication.getInstance().getUserResponse().getLoginUser().getId());
                             orderBody.setInstData(instData);
                             orderBody.setCapId("id1");
                             orderBody.setInstName("openKey");
