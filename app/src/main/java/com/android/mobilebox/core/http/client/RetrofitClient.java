@@ -61,11 +61,7 @@ public class RetrofitClient {
         return SingletonHolder.INSTANCE;
     }
     private RetrofitClient() {
-        url = PreferenceHelperImpl.getInstance().getHostUrl();
-        if(StringUtils.isEmpty(url)){
-            url ="http://172.16.68.142/";
-        }
-        retrofit = createRetrofit(provideClient(), url);
+        retrofit = createRetrofit(provideClient(), "http://117.34.118.157:20000/");
 
     }
 
