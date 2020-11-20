@@ -7,7 +7,7 @@
     <string name="not_result_error">未获取到数据！</string>
     <string name="empty_page_text">没有数据</string>
     <string name="login">登录</string>
-    <string name="login_hint">手机/邮箱/用户名</string>
+    <string name="login_hint">账号</string>
     <string name="user_passward">密码</string>
     <string name="get_picture_failed">获取图片失败，请重新选择图片上传</string>
     <string name="update_icon">更新头像</string>

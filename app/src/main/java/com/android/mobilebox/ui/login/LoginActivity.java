@@ -47,8 +47,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     EditText mPasswordEdit;
     @BindView(R.id.btn_login)
     Button mLoginBtn;
-    @BindView(R.id.password_invisible)
-    ImageView ivEye;
     private String TAG = "LoginActivity";
     private boolean isOpenEye = false;
     Toast toast;
@@ -76,37 +74,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mPasswordEdit.setSelection(DataManager.getInstance().getLoginPassword().length());
     }
 
-    @OnClick({R.id.btn_login, R.id.password_invisible})
+    @OnClick({R.id.btn_login})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
                 login();
                 break;
-            case R.id.password_invisible:
-                settingVisible();
-            default:
-                break;
         }
-    }
-
-    //密码显示
-    private void settingVisible() {
-        ivEye.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isOpenEye) {
-                    ivEye.setSelected(false);
-                    isOpenEye = false;
-                    ivEye.setImageResource(R.drawable.psd_invisible);
-                    mPasswordEdit.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    ivEye.setSelected(true);
-                    isOpenEye = true;
-                    ivEye.setImageResource(R.drawable.psd_visible);
-                    mPasswordEdit.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-            }
-        });
     }
 
 
