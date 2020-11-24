@@ -18,14 +18,11 @@ import android.widget.TextView;
 import com.android.mobilebox.R;
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.AddUserContract;
-import com.android.mobilebox.contract.UploadFaceContract;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.AddUserBody;
-import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.presenter.AddUserPresenter;
-import com.android.mobilebox.presenter.UploadFacePresenter;
 import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.ToastUtils;
 import com.bumptech.glide.Glide;
@@ -44,8 +41,6 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
     TextView mTitle;
     @BindView(R.id.iv_face)
     ImageView faceView;
-    @BindView(R.id.tv_imgpath)
-    TextView pathText;
     @BindView(R.id.edit_account)
     EditText accountEt;
     @BindView(R.id.edit_password)
@@ -81,7 +76,6 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
         if (uploadFaceResponse.getCode() == 200000) {
             ToastUtils.showShort("人脸头像上传成功");
             imgPath = uploadFaceResponse.getData().getFaceImage();
-            pathText.setText("图片地址：" + uploadFaceResponse.getData().getFaceImage());
         } else {
             imgPath = null;
             ToastUtils.showShort("人脸头像上传失败");
@@ -97,23 +91,11 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
         }
     }
 
-    @OnClick({R.id.iv_face, R.id.bt_upload_pic, R.id.bt_add_user, R.id.title_back})
+    @OnClick({R.id.iv_face, R.id.bt_add_user, R.id.title_back})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.iv_face:
                 chooseLocalImage();
-                break;
-            case R.id.bt_upload_pic:
-                if (!StringUtils.isEmpty(path)) {
-                    File file = new File(path);
-                    if (file.exists()) {
-                        RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), file);
-                        //将文件转化为MultipartBody.Part
-                        //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
-                        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), imgBody);
-                        mPresenter.uploadFace(filePart);
-                    }
-                }
                 break;
             case R.id.bt_add_user:
                 if (StringUtils.isEmpty(accountEt.getText().toString())) {
@@ -124,14 +106,14 @@ public class AddUserActivity extends BaseActivity<AddUserPresenter> implements A
                     ToastUtils.showShort("密码不能为空！");
                     return;
                 }
-                if (StringUtils.isEmpty(pathText.getText().toString())) {
+                if (StringUtils.isEmpty(imgPath)) {
                     ToastUtils.showShort("用户头像不能为空！");
                     return;
                 }
                 AddUserBody addUserBody = new AddUserBody();
                 addUserBody.setUsername(accountEt.getText().toString());
                 addUserBody.setPassword(passwordEt.getText().toString());
-                addUserBody.setFaceImg(pathText.getText().toString());
+                addUserBody.setFaceImg(imgPath);
                 mPresenter.addUser(addUserBody);
                 break;
             case R.id.title_back:

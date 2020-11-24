@@ -1,13 +1,17 @@
 package com.android.mobilebox.ui.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mobilebox.R;
@@ -15,6 +19,7 @@ import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.UserListContract;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
+import com.android.mobilebox.customview.CustomPopWindow;
 import com.android.mobilebox.presenter.UserListPresenter;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
@@ -31,9 +36,14 @@ public class UserListActivity extends BaseActivity<UserListPresenter> implements
     RecyclerView mRecycleView;
     @BindView(R.id.edit_search)
     EditText editText;
+    @BindView(R.id.iv_add_user)
+    ImageView ivAddUser;
     private List<UserInfo> mUsers = new ArrayList<>();
     private List<UserInfo> mAllUsers = new ArrayList<>();
     private UserAdapter userAdapter;
+    private CustomPopWindow mCustomPopWindow;
+    private View addUserIm;
+
     @Override
     public UserListPresenter initPresenter() {
         return new UserListPresenter();
@@ -68,6 +78,20 @@ public class UserListActivity extends BaseActivity<UserListPresenter> implements
                 return false;
             }
         });
+        View contentView = LayoutInflater.from(this).inflate(R.layout.pop_layout,findViewById(android.R.id.content),false );
+        addUserIm = contentView.findViewById(R.id.iv_add_user);
+        mCustomPopWindow = new CustomPopWindow.PopupWindowBuilder(this)
+                .setView(contentView)
+                .enableBackgroundDark(false)
+                .size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+        addUserIm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserListActivity.this,AddUserActivity.class));
+                mCustomPopWindow.dissmiss();
+            }
+        });
         mPresenter.getAllUserInfo();
     }
 
@@ -99,7 +123,7 @@ public class UserListActivity extends BaseActivity<UserListPresenter> implements
                 finish();
                 break;
             case R.id.iv_add_user:
-
+                mCustomPopWindow.showAsDropDown(ivAddUser);
                 break;
         }
     }
