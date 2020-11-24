@@ -1,13 +1,10 @@
 package com.android.mobilebox.ui.login;
 
 import android.content.Intent;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.mobilebox.MainActivity;
@@ -16,12 +13,11 @@ import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.LoginContract;
 import com.android.mobilebox.core.DataManager;
 import com.android.mobilebox.core.bean.BaseResponse;
-import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.LoginUser;
+import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.http.api.GeeksApis;
 import com.android.mobilebox.core.http.client.RetrofitClient;
 import com.android.mobilebox.presenter.LoginPresenter;
-import com.android.mobilebox.ui.unlock.DeviceActivity;
 import com.android.mobilebox.utils.RxUtils;
 
 import java.io.File;
@@ -136,7 +132,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void startMainActivity() {
-        startActivity(new Intent(this, DeviceActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

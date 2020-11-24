@@ -1,16 +1,10 @@
 package com.android.mobilebox;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
-import com.android.mobilebox.contract.AddUserContract;
-import com.android.mobilebox.ui.unlock.DeviceActivity;
-import com.android.mobilebox.ui.unlock.UnlockActivity;
-import com.android.mobilebox.ui.uploadface.UploadFaceActivity;
-import com.android.mobilebox.ui.user.AddUserActivity;
 
 import butterknife.OnClick;
 
@@ -41,17 +35,12 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.bt_upload_face,R.id.bt_devices,R.id.bt_add_user})
+    @OnClick({R.id.bt_in_out, R.id.bt_users})
     void performClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_upload_face:
-                startActivity(new Intent(this, UploadFaceActivity.class));
+            case R.id.bt_in_out:
                 break;
-            case R.id.bt_devices:
-                startActivity(new Intent(this, DeviceActivity.class));
-                break;
-            case R.id.bt_add_user:
-                startActivity(new Intent(this, AddUserActivity.class));
+            case R.id.bt_users:
                 break;
         }
     }

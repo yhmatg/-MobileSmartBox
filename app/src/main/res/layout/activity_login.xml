@@ -46,6 +46,7 @@
         android:layout_marginTop="@dimen/dp_18"
         android:background="@drawable/account_back"
         android:hint="@string/user_passward"
+        android:inputType="textPassword"
         android:paddingStart="@dimen/dp_20"
         android:paddingEnd="@dimen/dp_20"
         android:textColorHint="#ACACAC"
