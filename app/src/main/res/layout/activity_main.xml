@@ -35,7 +35,7 @@
         android:layout_height="@dimen/dp_66"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_12"
-        android:background="@drawable/in_out_back" />
+        android:background="@drawable/users_back" />
 
 
 </LinearLayout>
