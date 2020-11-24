@@ -9,12 +9,13 @@ package com.android.mobilebox.core.bean.user;
 public class OrderResponse {
 
     /**
-     * actType : 取件
+     * actType : 存取
      * devId : 15aa68f3183311ebb7260242ac120004_uniqueCode002
-     * gmtCreate : 1604629104173
-     * gmtModified : 1604629104173
-     * id : 2c90c40e75920dc701759b59062e001b
-     * relevanceId : 1111111111
+     * gmtCreate : 1605766666000
+     * gmtModified : 1605766666000
+     * id : 2c92808575de79f30175df26d863003f
+     * relevanceId : f76c5514-bc9e-4864-92ac-67ad5fdefa4d
+     * user : {"faceImg":"http://172.16.61.101:9000/group1/M00/00/00/rBA9ZV-ib0uAdnu-AChUMxWesXk799.jpg","id":3,"username":"manager01"}
      * userId : 3
      */
 
@@ -24,6 +25,7 @@ public class OrderResponse {
     private long gmtModified;
     private String id;
     private String relevanceId;
+    private UserInfo user;
     private int userId;
 
     public String getActType() {
@@ -74,24 +76,19 @@ public class OrderResponse {
         this.relevanceId = relevanceId;
     }
 
+    public UserInfo getUser() {
+        return user;
+    }
+
+    public void setUser(UserInfo user) {
+        this.user = user;
+    }
+
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderResponse{" +
-                "actType='" + actType + '\'' +
-                ", devId='" + devId + '\'' +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                ", id='" + id + '\'' +
-                ", relevanceId='" + relevanceId + '\'' +
-                ", userId=" + userId +
-                '}';
     }
 }

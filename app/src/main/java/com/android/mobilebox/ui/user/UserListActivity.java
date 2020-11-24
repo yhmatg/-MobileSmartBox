@@ -92,6 +92,11 @@ public class UserListActivity extends BaseActivity<UserListPresenter> implements
                 mCustomPopWindow.dissmiss();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mPresenter.getAllUserInfo();
     }
 
