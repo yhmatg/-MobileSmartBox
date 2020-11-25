@@ -1,7 +1,6 @@
 package com.android.mobilebox.ui.device;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -19,11 +18,8 @@ import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.DeviceContract;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.DeviceResponse;
-import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.customview.CustomPopWindow;
 import com.android.mobilebox.presenter.DevicePresenter;
-import com.android.mobilebox.ui.user.AddUserActivity;
-import com.android.mobilebox.ui.user.UserAdapter;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.annimon.stream.function.Predicate;
@@ -43,11 +39,11 @@ public class DeviceListActivity extends BaseActivity<DevicePresenter> implements
     ImageView ivAddUser;
     @BindView(R.id.title_content)
     TextView mTitle;
-    private List<UserInfo> mUsers = new ArrayList<>();
-    private List<UserInfo> mAllUsers = new ArrayList<>();
-    private UserAdapter userAdapter;
+    private List<DeviceResponse> mDevices = new ArrayList<>();
+    private List<DeviceResponse> mAllDevices = new ArrayList<>();
+    private DeviceAdapter deviceAdapter;
     private CustomPopWindow mCustomPopWindow;
-    private View addUserIm;
+    private ImageView addDeviceIm;
 
     @Override
     public DevicePresenter initPresenter() {
@@ -57,8 +53,8 @@ public class DeviceListActivity extends BaseActivity<DevicePresenter> implements
     @Override
     protected void initEventAndData() {
         mTitle.setText("存储柜");
-        userAdapter = new UserAdapter(this,mUsers);
-        mRecycleView.setAdapter(userAdapter);
+        deviceAdapter = new DeviceAdapter(this,mDevices);
+        mRecycleView.setAdapter(deviceAdapter);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -68,36 +64,30 @@ public class DeviceListActivity extends BaseActivity<DevicePresenter> implements
                     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     String assetsId = editText.getText().toString();
                     editText.setSelection(assetsId.length());
-                    List<UserInfo> filterList = Stream.of(mAllUsers).filter(new Predicate<UserInfo>() {
+                    List<DeviceResponse> filterList = Stream.of(mAllDevices).filter(new Predicate<DeviceResponse>() {
 
                         @Override
-                        public boolean test(UserInfo value) {
-                            int i = value.getUsername().indexOf(assetsId);
+                        public boolean test(DeviceResponse value) {
+                            int i = value.getDevName().indexOf(assetsId);
                             return i != -1;
                         }
                     }).collect(Collectors.toList());
-                    mUsers.clear();
-                    mUsers.addAll(filterList);
-                    userAdapter.notifyDataSetChanged();
+                    mDevices.clear();
+                    mDevices.addAll(filterList);
+                    deviceAdapter.notifyDataSetChanged();
                     return true;
                 }
                 return false;
             }
         });
         View contentView = LayoutInflater.from(this).inflate(R.layout.pop_layout,findViewById(android.R.id.content),false );
-        addUserIm = contentView.findViewById(R.id.iv_add_user);
+        addDeviceIm = contentView.findViewById(R.id.iv_add_user);
+        addDeviceIm.setImageResource(R.drawable.add_device_icon);
         mCustomPopWindow = new CustomPopWindow.PopupWindowBuilder(this)
                 .setView(contentView)
                 .enableBackgroundDark(false)
                 .size(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .create();
-        addUserIm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DeviceListActivity.this,AddUserActivity.class));
-                mCustomPopWindow.dissmiss();
-            }
-        });
     }
 
     @Override
@@ -131,6 +121,13 @@ public class DeviceListActivity extends BaseActivity<DevicePresenter> implements
 
     @Override
     public void handleGetAllDevices(BaseResponse<List<DeviceResponse>> devices) {
-
+        if(200000 == devices.getCode()){
+            mDevices.clear();
+            mAllDevices.clear();
+            mDevices.addAll(devices.getData());
+            mAllDevices.addAll(devices.getData());
+            deviceAdapter.notifyDataSetChanged();
+        }
     }
+
 }

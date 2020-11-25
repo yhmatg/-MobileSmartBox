@@ -18,6 +18,7 @@ public class DeviceResponse {
     private long gmtModified;
     private String id;
     private String prodId;
+    private int rfid_inbox;
 
     public String getDevCode() {
         return devCode;
@@ -73,5 +74,13 @@ public class DeviceResponse {
 
     public void setProdId(String prodId) {
         this.prodId = prodId;
+    }
+
+    public int getRfid_inbox() {
+        return rfid_inbox;
+    }
+
+    public void setRfid_inbox(int rfid_inbox) {
+        this.rfid_inbox = rfid_inbox;
     }
 }

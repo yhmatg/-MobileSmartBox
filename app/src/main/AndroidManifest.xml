@@ -43,6 +43,10 @@
         <activity
             android:name=".ui.record.RecordDetailActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.device.DeviceListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
     </application>
 
 </manifest>

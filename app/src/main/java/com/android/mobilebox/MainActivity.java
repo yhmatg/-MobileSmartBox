@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.base.presenter.AbstractPresenter;
+import com.android.mobilebox.ui.device.DeviceListActivity;
 import com.android.mobilebox.ui.user.UserListActivity;
 
 import butterknife.OnClick;
@@ -41,6 +42,7 @@ public class MainActivity extends BaseActivity {
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.bt_in_out:
+                startActivity(new Intent(this, DeviceListActivity.class));
                 break;
             case R.id.bt_users:
                 startActivity(new Intent(this, UserListActivity.class));
