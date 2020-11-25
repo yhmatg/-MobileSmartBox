@@ -77,4 +77,9 @@ public interface GeeksApis {
     //查询所有的终端设备
     @GET("/api/v1/iotterminals")
     Observable<BaseResponse<List<DeviceResponse>>> getAllDevices();
+
+    //获取指定用户的操作记录
+    //查询操作单记录
+    @GET("/api/v1/useractrecords/users/{userId}")
+    Observable<BaseResponse<List<OrderResponse>>> getUserOrders(@Path("userId") Integer userId, @Query("dev_id") String devId, @Query("act_type") String actType);
 }

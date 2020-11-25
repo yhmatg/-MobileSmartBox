@@ -49,6 +49,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 intent.putExtra("OPERATE_TIME",operateTime);
                 intent.putExtra("DEVICE_NAME","uniqueCode002");
                 intent.putExtra("RELEVANCE_ID",orderResponse.getRelevanceId());
+                intent.putExtra("DEVICE_ID",orderResponse.getDevId());
                 intent.setClass(context, RecordDetailActivity.class);
                 context.startActivity(intent);
             }

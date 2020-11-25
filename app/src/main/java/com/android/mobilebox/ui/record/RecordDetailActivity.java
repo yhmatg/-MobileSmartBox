@@ -13,7 +13,7 @@ import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.RecordDetailContract;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.TerminalResult;
-import com.android.mobilebox.core.bean.user.UserLoginResponse;
+import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.presenter.RecordDetailPresenter;
 import com.android.mobilebox.utils.StringUtils;
 import com.annimon.stream.Collectors;
@@ -44,8 +44,9 @@ public class RecordDetailActivity extends BaseActivity<RecordDetailPresenter> im
     RecyclerView mRecycleView;
     private RecordPropAdapter mAdapter;
     private List<PropFileBean> propFileBeans = new ArrayList<>();
-    private UserLoginResponse.LoginUser currentUser;
+    private UserInfo currentUser;
     private String relevanceId = "";
+    private String deviceId = "";
     @Override
     public RecordDetailPresenter initPresenter() {
         return new RecordDetailPresenter();
@@ -58,6 +59,7 @@ public class RecordDetailActivity extends BaseActivity<RecordDetailPresenter> im
             String operateTime = intent.getStringExtra("OPERATE_TIME");
             String deviceName = intent.getStringExtra("DEVICE_NAME");
             relevanceId = intent.getStringExtra("RELEVANCE_ID");
+            deviceId = intent.getStringExtra("DEVICE_ID");
             if(!StringUtils.isEmpty(operateTime)){
                 mTime.setText(operateTime);
             }
@@ -65,7 +67,7 @@ public class RecordDetailActivity extends BaseActivity<RecordDetailPresenter> im
                 mBoxCode.setText("柜号：" + deviceName);
             }
         }
-        currentUser = SmartBoxApplication.getInstance().getUserResponse().getLoginUser();
+        currentUser = SmartBoxApplication.getInstance().getSelectUserInfo();
         if (currentUser != null) {
             Glide.with(this).load(currentUser.getFaceImg()).into(mUserIcon);
             mUserName.setText(currentUser.getUsername());
@@ -73,7 +75,7 @@ public class RecordDetailActivity extends BaseActivity<RecordDetailPresenter> im
         mAdapter = new RecordPropAdapter(this,propFileBeans);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
         mRecycleView.setAdapter(mAdapter);
-        mPresenter.getTerminalProp("15aa68f3183311ebb7260242ac120004_uniqueCode002",relevanceId);
+        mPresenter.getTerminalProp(deviceId,relevanceId);
     }
 
     @Override

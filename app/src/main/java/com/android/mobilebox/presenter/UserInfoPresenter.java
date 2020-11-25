@@ -64,4 +64,16 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View> impl
                     }
                 }));
     }
+
+    @Override
+    public void getUserOrders(Integer userId, String devId, String actType) {
+        addSubscribe(DataManager.getInstance().getUserOrders(userId,devId, actType)
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribeWith(new BaseObserver<BaseResponse<List<OrderResponse>>>(mView, false) {
+                    @Override
+                    public void onNext(BaseResponse<List<OrderResponse>> listBaseResponse) {
+                        mView.handleGetAllOrders(listBaseResponse);
+                    }
+                }));
+    }
 }

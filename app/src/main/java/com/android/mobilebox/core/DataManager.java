@@ -148,4 +148,9 @@ public class DataManager implements HttpHelper, PreferenceHelper {
         return mHttpHelper.getAllOrders(devId, actType);
     }
 
+    @Override
+    public Observable<BaseResponse<List<OrderResponse>>> getUserOrders(Integer userId, String devId, String actType) {
+        return mHttpHelper.getUserOrders(userId, devId, actType);
+    }
+
 }

@@ -13,6 +13,7 @@ public class DeviceResponse {
 
     private String devCode;
     private String devName;
+    private String devStatus;
     private long gmtCreate;
     private long gmtModified;
     private String id;
@@ -32,6 +33,14 @@ public class DeviceResponse {
 
     public void setDevName(String devName) {
         this.devName = devName;
+    }
+
+    public String getDevStatus() {
+        return devStatus;
+    }
+
+    public void setDevStatus(String devStatus) {
+        this.devStatus = devStatus;
     }
 
     public long getGmtCreate() {

@@ -25,7 +25,6 @@ import com.android.mobilebox.core.bean.user.FaceBody;
 import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
 import com.android.mobilebox.core.bean.user.UserInfo;
-import com.android.mobilebox.core.bean.user.UserLoginResponse;
 import com.android.mobilebox.presenter.UserInfoPresenter;
 import com.android.mobilebox.utils.ToastUtils;
 import com.bumptech.glide.Glide;
@@ -51,7 +50,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     RecyclerView mRecycleView;
     private RecordAdapter mAdapter;
     private List<OrderResponse> mOrders = new ArrayList<>();
-    private UserLoginResponse.LoginUser currentUser;
+    private UserInfo currentUser;
     private static final int ACTION_CHOOSE_IMAGE = 0x201;
     private Bitmap mBitmap = null;
     private String path;
@@ -64,15 +63,15 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     @Override
     protected void initEventAndData() {
-        currentUser = SmartBoxApplication.getInstance().getUserResponse().getLoginUser();
-        if (currentUser != null) {
-            Glide.with(this).load(currentUser.getFaceImg()).into(mUserIcon);
-            mUserName.setText(currentUser.getUsername());
-        }
         mAdapter = new RecordAdapter(this, mOrders);
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        mPresenter.getAllOrders("", "");
+        currentUser = SmartBoxApplication.getInstance().getSelectUserInfo();
+        if (currentUser != null) {
+            Glide.with(this).load(currentUser.getFaceImg()).into(mUserIcon);
+            mUserName.setText(currentUser.getUsername());
+            mPresenter.getUserOrders(currentUser.getId(),"", "");
+        }
     }
 
     @Override

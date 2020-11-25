@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.mobilebox.R;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.bumptech.glide.Glide;
 
@@ -44,7 +45,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
        viewHolder.itemLayout.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-                context.startActivity(new Intent(context,UserInfoActivity.class));
+               SmartBoxApplication.getInstance().setSelectUserInfo(userInfo);
+               context.startActivity(new Intent(context,UserInfoActivity.class));
            }
        });
     }

@@ -4,13 +4,13 @@ import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.AddUserBody;
 import com.android.mobilebox.core.bean.user.DeviceResponse;
 import com.android.mobilebox.core.bean.user.FaceBody;
+import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
-import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.TerminalResult;
 import com.android.mobilebox.core.bean.user.UploadFaceResponse;
-import com.android.mobilebox.core.bean.user.LoginUser;
 import com.android.mobilebox.core.bean.user.UserInfo;
 import com.android.mobilebox.core.bean.user.UserLoginResponse;
 
@@ -47,5 +47,7 @@ public interface HttpHelper {
     Observable<BaseResponse<List<DeviceResponse>>> getAllDevices();
 
     Observable<BaseResponse<List<OrderResponse>>> getAllOrders(String devId, String actType);
+
+    Observable<BaseResponse<List<OrderResponse>>> getUserOrders(Integer userId, String devId, String actType);
 
 }

@@ -33,5 +33,8 @@ public interface UserInfoContract {
 
         //查询操作单记录
         void getAllOrders(String devId, String actType);
+
+        //查询操作单记录
+        void getUserOrders(Integer userId, String devId, String actType);
     }
 }

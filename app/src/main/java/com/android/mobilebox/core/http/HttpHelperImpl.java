@@ -109,4 +109,9 @@ public class HttpHelperImpl implements HttpHelper {
         return mGeeksApis.getAllOrders(devId, actType);
     }
 
+    @Override
+    public Observable<BaseResponse<List<OrderResponse>>> getUserOrders(Integer userId, String devId, String actType) {
+        return mGeeksApis.getUserOrders(userId, devId, actType);
+    }
+
 }
