@@ -10,12 +10,10 @@ import com.android.mobilebox.base.activity.BaseActivity;
 import com.android.mobilebox.contract.UnlockContract;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
-import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
-import com.android.mobilebox.core.bean.user.OrderBody;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.TerminalResult;
 import com.android.mobilebox.presenter.UnlockPresenter;
-import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -86,14 +84,14 @@ public class UnlockActivity extends BaseActivity<UnlockPresenter> implements Unl
             String result = "";
             List<TerminalResult> data = terminalPropResponse.getData();
             if (data.size() > 0) {
-                result += "操作单号：" + data.get(0).getRelevance_id() + "\n";
+                result += "操作单号：" + data.get(0).getRelevanceId() + "\n";
             }
             for (TerminalResult datum : data) {
-                if ("id1".equals(datum.getCap_id())) {
+                if ("id1".equals(datum.getCapId())) {
                     result += "开锁完成" + "\n";
-                } else if ("id2".equals(datum.getCap_id())) {
+                } else if ("id2".equals(datum.getCapId())) {
                     result += "关锁完成" + "\n";
-                } else if ("id3".equals(datum.getCap_id())) {
+                } else if ("id3".equals(datum.getCapId())) {
                     result += "盘点上报完成" + "\n";
                     result += "   存件：" + datum.getProp().getRfid_in() + "\n";
                     result += "   取件：" + datum.getProp().getRfid_out() + "\n";

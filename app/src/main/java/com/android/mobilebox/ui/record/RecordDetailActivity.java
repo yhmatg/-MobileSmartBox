@@ -91,7 +91,7 @@ public class RecordDetailActivity extends BaseActivity<RecordDetailPresenter> im
         if(200000 == terminalPropResponse.getCode()){
             List<TerminalResult> results = terminalPropResponse.getData();
             for (TerminalResult result : results) {
-                if("id3".equals(result.getCap_id())){
+                if("id3".equals(result.getCapId())){
                     List<String> inEpcs = result.getProp().getRfid_in();
                     List<String> outEpcs = result.getProp().getRfid_out();
                     mInFiles.setText("存件：" + inEpcs.size() + "件");

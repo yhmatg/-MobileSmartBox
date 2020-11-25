@@ -9,15 +9,14 @@ import com.android.mobilebox.contract.UnlockContract;
 import com.android.mobilebox.core.DataManager;
 import com.android.mobilebox.core.bean.BaseResponse;
 import com.android.mobilebox.core.bean.user.NewOrderBody;
-import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.OpenResult;
 import com.android.mobilebox.core.bean.user.OrderBody;
+import com.android.mobilebox.core.bean.user.OrderResponse;
 import com.android.mobilebox.core.bean.user.TerminalResult;
 import com.android.mobilebox.core.http.widget.BaseObserver;
 import com.android.mobilebox.utils.RxUtils;
 import com.android.mobilebox.utils.ToastUtils;
 
-import java.util.EventListener;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -50,7 +49,7 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
                         List<TerminalResult> data = listBaseResponse.getData();
                         boolean isInvReported = false;
                         for (TerminalResult datum : data) {
-                            if ("id3".equals(datum.getCap_id())) {
+                            if ("id3".equals(datum.getCapId())) {
                                 isInvReported = true;
                                 break;
                             }

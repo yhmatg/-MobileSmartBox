@@ -21,38 +21,14 @@ public class TerminalResult {
      * relevance_id : 自定义Id推荐uuid
      */
 
-    private String cap_id;
-    private long data_event_time;
-    private String dev_id;
+    private String  capId;
+    private long dataEventTime;
+    private String devId;
     private long gmtCreate;
     private long gmtModified;
     private String id;
     private Prop prop;
-    private String relevance_id;
-
-    public String getCap_id() {
-        return cap_id;
-    }
-
-    public void setCap_id(String cap_id) {
-        this.cap_id = cap_id;
-    }
-
-    public long getData_event_time() {
-        return data_event_time;
-    }
-
-    public void setData_event_time(long data_event_time) {
-        this.data_event_time = data_event_time;
-    }
-
-    public String getDev_id() {
-        return dev_id;
-    }
-
-    public void setDev_id(String dev_id) {
-        this.dev_id = dev_id;
-    }
+    private String relevanceId;
 
     public long getGmtCreate() {
         return gmtCreate;
@@ -86,12 +62,36 @@ public class TerminalResult {
         this.prop = prop;
     }
 
-    public String getRelevance_id() {
-        return relevance_id;
+    public String getCapId() {
+        return capId;
     }
 
-    public void setRelevance_id(String relevance_id) {
-        this.relevance_id = relevance_id;
+    public void setCapId(String capId) {
+        this.capId = capId;
+    }
+
+    public long getDataEventTime() {
+        return dataEventTime;
+    }
+
+    public void setDataEventTime(long dataEventTime) {
+        this.dataEventTime = dataEventTime;
+    }
+
+    public String getDevId() {
+        return devId;
+    }
+
+    public void setDevId(String devId) {
+        this.devId = devId;
+    }
+
+    public String getRelevanceId() {
+        return relevanceId;
+    }
+
+    public void setRelevanceId(String relevanceId) {
+        this.relevanceId = relevanceId;
     }
 
     public static class Prop {
