@@ -1,6 +1,7 @@
 package com.android.mobilebox.ui.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.mobilebox.R;
 import com.android.mobilebox.core.bean.user.OrderResponse;
+import com.android.mobilebox.ui.record.RecordDetailActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,11 +40,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         OrderResponse orderResponse = mOrders.get(i);
-        viewHolder.tvOperateTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(orderResponse.getGmtModified())));
+        String operateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(orderResponse.getGmtModified()));
+        viewHolder.tvOperateTime.setText(operateTime);
         viewHolder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.putExtra("OPERATE_TIME",operateTime);
+                intent.putExtra("DEVICE_NAME","uniqueCode002");
+                intent.putExtra("RELEVANCE_ID",orderResponse.getRelevanceId());
+                intent.setClass(context, RecordDetailActivity.class);
+                context.startActivity(intent);
             }
         });
     }

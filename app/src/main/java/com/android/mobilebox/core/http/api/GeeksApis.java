@@ -43,7 +43,7 @@ public interface GeeksApis {
     Observable<BaseResponse<UploadFaceResponse>> uploadFace(@Part MultipartBody.Part part);
 
     //人脸头像更新
-    @POST("/api/v1/users/updateface")
+    @POST("/api/v1/unauth/updateface")
     Observable<BaseResponse<UserInfo>> updateFace(@Body FaceBody faceBody);
 
     //根据用户id获取用户信息

@@ -40,6 +40,9 @@
         <activity
             android:name=".ui.user.UserInfoActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.record.RecordDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
