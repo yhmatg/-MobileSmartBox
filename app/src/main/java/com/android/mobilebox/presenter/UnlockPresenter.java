@@ -49,7 +49,7 @@ public class UnlockPresenter extends BasePresenter<UnlockContract.View> implemen
                         List<TerminalResult> data = listBaseResponse.getData();
                         boolean isInvReported = false;
                         for (TerminalResult datum : data) {
-                            if ("id3".equals(datum.getCapId())) {
+                            if ("id1".equals(datum.getCapId())) {
                                 isInvReported = true;
                                 break;
                             }

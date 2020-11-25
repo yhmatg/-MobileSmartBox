@@ -1,6 +1,7 @@
 package com.android.mobilebox.ui.device;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         DeviceResponse device = mDevices.get(i);
         viewHolder.tvDeviceName.setText(device.getDevName());
         viewHolder.tvNumber.setText("数量统计" + device.getRfid_inbox() + "件");
-        if("connect".equals(device.getDevStatus())){
+        if("connected".equals(device.getDevStatus())){
             viewHolder.ivStatus.setImageResource(R.drawable.online_icon);
         }else {
             viewHolder.ivStatus.setImageResource(R.drawable.offline_icon);
@@ -47,7 +48,12 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         viewHolder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.putExtra("DEVICE_ID",device.getProdId() + "_" + device.getDevCode());
+                intent.putExtra("DEVICE_NAME",device.getDevName());
+                intent.putExtra("DEVICE_STATUS",device.getDevStatus());
+                intent.setClass(context, DeviceDetailActivity.class);
+                context.startActivity(intent);
             }
         });
     }
