@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_273"
-    android:layout_height="@dimen/dp_315"
-    android:layout_gravity="center"
-    android:background="@drawable/unlock_succ_back">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:layout_width="@dimen/dp_273"
+        android:layout_height="@dimen/dp_315"
+        android:layout_gravity="center"
+        android:background="@drawable/unlock_succ_back">
 
-    <Button
-        android:id="@+id/bt_confirm"
-        android:layout_width="@dimen/dp_155"
-        android:layout_height="@dimen/dp_52"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_12"
-        android:background="@drawable/unlock_sure_bt"
-        android:gravity="center"
-        android:textColor="@color/titele_color" />
-</RelativeLayout>
+        <Button
+            android:id="@+id/bt_confirm"
+            android:layout_width="@dimen/dp_155"
+            android:layout_height="@dimen/dp_52"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:background="@drawable/unlock_sure_bt"
+            android:gravity="center"
+            android:textColor="@color/titele_color" />
+    </RelativeLayout>
+
+</FrameLayout>
