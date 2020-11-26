@@ -75,7 +75,7 @@ public interface GeeksApis {
     Observable<BaseResponse<OrderResponse>> newOrder(@Path("dev_id") String devId, @Body NewOrderBody newOrderBody);
 
     //查询所有的终端设备
-    @GET("/api/v1/iotterminals")
+    @GET("/api/v1/iotterminals/rfidcount")
     Observable<BaseResponse<List<DeviceResponse>>> getAllDevices();
 
     //获取指定用户的操作记录
