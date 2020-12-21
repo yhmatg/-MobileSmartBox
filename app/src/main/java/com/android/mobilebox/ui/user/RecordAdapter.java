@@ -39,17 +39,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        OrderResponse orderResponse = mOrders.get(i);
+        int index = mOrders.size() > 0 ? (mOrders.size()- 1 - i) : 0;
+        OrderResponse orderResponse = mOrders.get(index);
         String operateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(orderResponse.getGmtModified()));
         viewHolder.tvOperateTime.setText(operateTime);
         viewHolder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("OPERATE_TIME",operateTime);
-                intent.putExtra("DEVICE_NAME","uniqueCode002");
-                intent.putExtra("RELEVANCE_ID",orderResponse.getRelevanceId());
-                intent.putExtra("DEVICE_ID",orderResponse.getDevId());
+                intent.putExtra("OPERATE_TIME", operateTime);
+                intent.putExtra("DEVICE_NAME", "智能柜002");
+                intent.putExtra("RELEVANCE_ID", orderResponse.getRelevanceId());
+                intent.putExtra("DEVICE_ID", orderResponse.getDevId());
                 intent.setClass(context, RecordDetailActivity.class);
                 context.startActivity(intent);
             }
