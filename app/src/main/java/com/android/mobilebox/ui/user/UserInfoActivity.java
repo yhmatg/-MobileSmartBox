@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -55,6 +57,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     private Bitmap mBitmap = null;
     private String path;
     private String imgPath;
+    private static final int REQUEST_CODE_TAKE_PICTURE = 100;
+    private File newFile;
 
     @Override
     public UserInfoPresenter initPresenter() {
@@ -121,15 +125,19 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
         }
     }
 
-    @OnClick({R.id.title_back,R.id.iv_user_icon})
+    @OnClick({R.id.title_back,R.id.iv_user_icon,R.id.tv_change_icon})
     void performClick(View v) {
         switch (v.getId()) {
             case R.id.title_back:
                 finish();
                 break;
             case R.id.iv_user_icon:
+                takePicture();
+                break;
+            case R.id.tv_change_icon:
                 chooseLocalImage();
                 break;
+
         }
     }
 
@@ -170,6 +178,20 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
                 //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
                 MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), imgBody);
                 mPresenter.uploadFace(filePart);
+            }
+        }
+
+        if(requestCode == REQUEST_CODE_TAKE_PICTURE && resultCode != 0){
+            if (newFile != null && newFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(newFile.getAbsolutePath());
+                mUserIcon.setImageBitmap(bitmap);
+                RequestBody imgBody = RequestBody.create(MediaType.parse("image/*"), newFile);
+                //将文件转化为MultipartBody.Part
+                //第一个参数：上传文件的key；第二个参数：文件名；第三个参数：RequestBody对象
+                MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", newFile.getName(), imgBody);
+                mPresenter.uploadFace(filePart);
+                //删除文件，防止上传出错
+                //newFile.delete();
             }
         }
     }
@@ -253,5 +275,14 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     public boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    public void takePicture() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 给拍摄的照片指定存储位置
+        newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "default_image.jpg");
+        Uri fileUri = FileProvider.getUriForFile(this, "com.android.mobilebox.provider", newFile); // 路径转换
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); //指定图片存放位置，指定后，在onActivityResult里得到的Data将为null
+        startActivityForResult(cameraIntent, REQUEST_CODE_TAKE_PICTURE);
     }
 }

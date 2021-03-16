@@ -36,6 +36,7 @@
             android:src="@drawable/usericon_back" />
 
         <TextView
+            android:id="@+id/tv_change_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_user_icon"
@@ -43,7 +44,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/dp_10"
             android:gravity="center"
-            android:text="修改头像"
+            android:text="相册选择"
             android:textColor="@color/white" />
 
         <TextView

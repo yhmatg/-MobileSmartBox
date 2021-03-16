@@ -3,21 +3,21 @@ package com.android.mobilebox.core.http.client;
 import android.content.Context;
 
 import com.android.mobilebox.BuildConfig;
-import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.app.Constants;
+import com.android.mobilebox.app.SmartBoxApplication;
 import com.android.mobilebox.core.http.interceptor.AppendUrlIntercepter;
 import com.android.mobilebox.core.http.interceptor.CacheInterceptor;
-import com.android.mobilebox.core.prefs.PreferenceHelperImpl;
 import com.android.mobilebox.utils.CommonUtils;
 import com.android.mobilebox.utils.RylaiGson;
-import com.android.mobilebox.utils.StringUtils;
 import com.android.mobilebox.utils.Utils;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -61,7 +61,7 @@ public class RetrofitClient {
         return SingletonHolder.INSTANCE;
     }
     private RetrofitClient() {
-        retrofit = createRetrofit(provideClient(), "http://117.34.118.157:20000/");
+        retrofit = createRetrofit(provideClient(), "http://172.16.63.23:20000/");
 
     }
 
